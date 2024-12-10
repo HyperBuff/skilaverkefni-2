@@ -1,0 +1,36 @@
+uuid: e7653a03-46ed-4dc6-8663-9062907cdf59
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.auglysing.body
+    - field.field.node.auglysing.field_hlekkur
+    - field.field.node.auglysing.field_logun
+    - field.field.node.auglysing.field_mynd
+    - node.type.auglysing
+  module:
+    - text
+    - user
+id: node.auglysing.teaser
+targetEntityType: node
+bundle: auglysing
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_hlekkur: true
+  field_logun: true
+  field_mynd: true

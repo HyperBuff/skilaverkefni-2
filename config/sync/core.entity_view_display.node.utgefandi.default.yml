@@ -1,0 +1,98 @@
+uuid: ccbe8d40-a9c3-461b-9e57-f868ea5f6b7c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.utgefandi.body
+    - field.field.node.utgefandi.field_danardagur
+    - field.field.node.utgefandi.field_hlekkur
+    - field.field.node.utgefandi.field_logo
+    - field.field.node.utgefandi.field_lysing
+    - field.field.node.utgefandi.field_medlimir
+    - field.field.node.utgefandi.field_myndir
+    - field.field.node.utgefandi.field_stofndagur
+    - image.style.large
+    - node.type.utgefandi
+  module:
+    - datetime
+    - link
+    - media
+    - text
+    - user
+id: node.utgefandi.default
+targetEntityType: node
+bundle: utgefandi
+mode: default
+content:
+  field_danardagur:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: olivero_medium
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_hlekkur:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_logo:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 0
+    region: content
+  field_lysing:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_medlimir:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_myndir:
+    type: media_thumbnail
+    label: above
+    settings:
+      image_link: ''
+      image_style: large
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_stofndagur:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: olivero_medium
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 7
+    region: content
+hidden:
+  body: true

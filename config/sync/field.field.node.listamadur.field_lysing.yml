@@ -1,0 +1,24 @@
+uuid: 043e068f-552e-44a0-a585-cfdb8c3cd41d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lysing
+    - node.type.listamadur
+  module:
+    - text
+id: node.listamadur.field_lysing
+field_name: field_lysing
+entity_type: node
+bundle: listamadur
+label: Lýsing
+description: Lýsing
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

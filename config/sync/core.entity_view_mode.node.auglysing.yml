@@ -1,0 +1,11 @@
+uuid: b9fb1477-00a9-4022-8e0b-f99c99c09a38
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.auglysing
+label: Auglýsing
+description: ''
+targetEntityType: node
+cache: true

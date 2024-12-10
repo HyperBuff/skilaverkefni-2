@@ -1,0 +1,24 @@
+uuid: 6d5f5423-e958-47f4-ae31-569e5271ab64
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lysing
+    - node.type.utgefandi
+  module:
+    - text
+id: node.utgefandi.field_lysing
+field_name: field_lysing
+entity_type: node
+bundle: utgefandi
+label: Lýsing
+description: Lýsing
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

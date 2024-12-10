@@ -1,0 +1,23 @@
+uuid: 121c2e64-4005-4b0c-a51f-03fac34e1911
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_hlekkur
+    - node.type.listamadur
+  module:
+    - link
+id: node.listamadur.field_hlekkur
+field_name: field_hlekkur
+entity_type: node
+bundle: listamadur
+label: Hlekkur
+description: 'Hlekkur á vefsíðu/annað'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  title: 1
+  link_type: 17
+field_type: link

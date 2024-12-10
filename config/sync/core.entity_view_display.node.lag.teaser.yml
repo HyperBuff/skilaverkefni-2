@@ -1,0 +1,34 @@
+uuid: 624642ef-e4a3-4699-8fa6-7f95d16dc349
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.lag.body
+    - field.field.node.lag.field_lengd
+    - field.field.node.lag.field_youtube_link
+    - node.type.lag
+  module:
+    - text
+    - user
+id: node.lag.teaser
+targetEntityType: node
+bundle: lag
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_lengd: true
+  field_youtube_link: true

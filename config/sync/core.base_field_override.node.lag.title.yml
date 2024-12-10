@@ -1,0 +1,18 @@
+uuid: 3061b044-5e99-4fc4-bdd8-82cb9b23b905
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.lag
+id: node.lag.title
+field_name: title
+entity_type: node
+bundle: lag
+label: Titill
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

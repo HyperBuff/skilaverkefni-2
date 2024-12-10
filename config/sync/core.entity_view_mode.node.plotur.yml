@@ -1,0 +1,11 @@
+uuid: c76b247d-dcfd-4dee-99dd-4749afc8f9d8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.plotur
+label: Plötur
+description: ''
+targetEntityType: node
+cache: true

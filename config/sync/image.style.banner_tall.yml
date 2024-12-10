@@ -1,0 +1,29 @@
+uuid: 209c8fda-0fcf-4cf0-b261-58b858b2ff96
+langcode: en
+status: true
+dependencies: {  }
+name: banner_tall
+label: 'Banner Tall'
+effects:
+  0e8ab409-fc20-4cbf-9715-baa9607c5181:
+    uuid: 0e8ab409-fc20-4cbf-9715-baa9607c5181
+    id: image_convert
+    weight: -10
+    data:
+      extension: webp
+  d797a429-29e1-4ae7-a3bb-1bf38e7a3e9d:
+    uuid: d797a429-29e1-4ae7-a3bb-1bf38e7a3e9d
+    id: image_scale_and_crop
+    weight: -8
+    data:
+      width: 400
+      height: 1200
+      anchor: center-center
+  a8f63d22-90b7-4bb7-a71d-3ef563dfe776:
+    uuid: a8f63d22-90b7-4bb7-a71d-3ef563dfe776
+    id: image_rotate
+    weight: -9
+    data:
+      degrees: 90
+      bgcolor: ''
+      random: false

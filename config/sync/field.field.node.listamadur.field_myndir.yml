@@ -1,0 +1,29 @@
+uuid: 488d3057-d649-4d3c-86e5-e701ad5467af
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_myndir
+    - media.type.image
+    - node.type.listamadur
+id: node.listamadur.field_myndir
+field_name: field_myndir
+entity_type: node
+bundle: listamadur
+label: Myndir
+description: 'Ein eða margar myndir '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      image: image
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

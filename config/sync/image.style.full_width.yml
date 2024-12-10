@@ -1,0 +1,21 @@
+uuid: 9119ad01-e1fc-4fd4-aae4-d97513093767
+langcode: en
+status: true
+dependencies: {  }
+name: full_width
+label: 'Full Width'
+effects:
+  dd51e10c-e538-4f6c-b9f6-bd04e0cca030:
+    uuid: dd51e10c-e538-4f6c-b9f6-bd04e0cca030
+    id: image_convert
+    weight: -9
+    data:
+      extension: webp
+  eec170de-8cf3-4de2-8043-fe7349b6181e:
+    uuid: eec170de-8cf3-4de2-8043-fe7349b6181e
+    id: image_scale_and_crop
+    weight: -10
+    data:
+      width: 1920
+      height: 500
+      anchor: center-center

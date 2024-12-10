@@ -1,0 +1,42 @@
+uuid: 86ca7395-afd3-41ba-89dd-5dfd502e196c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.listamadur.body
+    - field.field.node.listamadur.field_danardagur
+    - field.field.node.listamadur.field_hlekkur
+    - field.field.node.listamadur.field_lysing
+    - field.field.node.listamadur.field_medlimir
+    - field.field.node.listamadur.field_myndir
+    - field.field.node.listamadur.field_stofndagur
+    - node.type.listamadur
+  module:
+    - text
+    - user
+id: node.listamadur.teaser
+targetEntityType: node
+bundle: listamadur
+mode: teaser
+content:
+  body:
+    type: text_summary_or_trimmed
+    label: hidden
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_danardagur: true
+  field_hlekkur: true
+  field_lysing: true
+  field_medlimir: true
+  field_myndir: true
+  field_stofndagur: true

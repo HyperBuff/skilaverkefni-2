@@ -1,0 +1,84 @@
+uuid: a6b6d810-b782-4ef0-995e-7e76ab9bbd7b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.listamadur.body
+    - field.field.node.listamadur.field_danardagur
+    - field.field.node.listamadur.field_hlekkur
+    - field.field.node.listamadur.field_lysing
+    - field.field.node.listamadur.field_medlimir
+    - field.field.node.listamadur.field_myndir
+    - field.field.node.listamadur.field_stofndagur
+    - node.type.listamadur
+  module:
+    - datetime
+    - link
+    - text
+    - user
+id: node.listamadur.default
+targetEntityType: node
+bundle: listamadur
+mode: default
+content:
+  field_danardagur:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: html_year
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_hlekkur:
+    type: link
+    label: inline
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_lysing:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_medlimir:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_myndir:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_stofndagur:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: html_year
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true

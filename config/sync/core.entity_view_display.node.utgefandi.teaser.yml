@@ -1,0 +1,44 @@
+uuid: fceb3b12-d7a1-42ec-b1b8-8b28ea02fa87
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.utgefandi.body
+    - field.field.node.utgefandi.field_danardagur
+    - field.field.node.utgefandi.field_hlekkur
+    - field.field.node.utgefandi.field_logo
+    - field.field.node.utgefandi.field_lysing
+    - field.field.node.utgefandi.field_medlimir
+    - field.field.node.utgefandi.field_myndir
+    - field.field.node.utgefandi.field_stofndagur
+    - node.type.utgefandi
+  module:
+    - text
+    - user
+id: node.utgefandi.teaser
+targetEntityType: node
+bundle: utgefandi
+mode: teaser
+content:
+  field_lysing:
+    type: text_summary_or_trimmed
+    label: above
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  field_danardagur: true
+  field_hlekkur: true
+  field_logo: true
+  field_medlimir: true
+  field_myndir: true
+  field_stofndagur: true

@@ -1,0 +1,80 @@
+uuid: dd2b747a-6d89-4988-892c-01d711e7fa69
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.plata.body
+    - field.field.node.plata.field_highlighted
+    - field.field.node.plata.field_listamadur
+    - field.field.node.plata.field_log
+    - field.field.node.plata.field_lysing
+    - field.field.node.plata.field_mynd
+    - field.field.node.plata.field_utgafuar
+    - field.field.node.plata.field_utgefandi
+    - node.type.plata
+  module:
+    - datetime
+    - text
+    - user
+id: node.plata.default
+targetEntityType: node
+bundle: plata
+mode: default
+content:
+  field_listamadur:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 4
+    region: content
+  field_log:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 6
+    region: content
+  field_lysing:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_mynd:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_utgafuar:
+    type: datetime_default
+    label: inline
+    settings:
+      timezone_override: ''
+      format_type: olivero_medium
+    third_party_settings: {  }
+    weight: 3
+    region: content
+  field_utgefandi:
+    type: entity_reference_label
+    label: inline
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  field_highlighted: true

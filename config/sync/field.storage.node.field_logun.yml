@@ -1,0 +1,30 @@
+uuid: b2e76534-d71f-4dfb-b806-05fd078a6139
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+    - options
+id: node.field_logun
+field_name: field_logun
+entity_type: node
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: banner_wide
+      label: 'banner wide'
+    -
+      value: banner_tall
+      label: 'banner tall'
+    -
+      value: full_width
+      label: 'full width'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

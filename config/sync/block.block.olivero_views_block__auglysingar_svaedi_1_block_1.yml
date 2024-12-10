@@ -1,0 +1,29 @@
+uuid: b40949f7-7e11-4d2c-849d-0ae2da861d24
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.auglysingar_svaedi_1
+  module:
+    - system
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__auglysingar_svaedi_1_block_1
+theme: olivero
+region: sidebar
+weight: 0
+provider: null
+plugin: 'views_block:auglysingar_svaedi_1-block_1'
+settings:
+  id: 'views_block:auglysingar_svaedi_1-block_1'
+  label: ''
+  label_display: visible
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /node

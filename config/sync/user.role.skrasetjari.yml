@@ -1,0 +1,78 @@
+uuid: 97eba023-c067-4a47-be71-591bc77620e8
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.audio
+    - media.type.document
+    - media.type.image
+    - media.type.remote_video
+    - media.type.video
+    - node.type.article
+    - node.type.auglysing
+    - node.type.lag
+    - node.type.listamadur
+    - node.type.page
+    - node.type.plata
+    - node.type.utgefandi
+  module:
+    - announcements_feed
+    - comment
+    - contextual
+    - file
+    - media
+    - node
+id: skrasetjari
+label: Skrásetjari
+weight: 5
+is_admin: null
+permissions:
+  - 'access announcements'
+  - 'access comments'
+  - 'access contextual links'
+  - 'cancel account'
+  - 'change own username'
+  - 'create audio media'
+  - 'create auglysing content'
+  - 'create document media'
+  - 'create image media'
+  - 'create lag content'
+  - 'create listamadur content'
+  - 'create media'
+  - 'create plata content'
+  - 'create remote_video media'
+  - 'create utgefandi content'
+  - 'create video media'
+  - 'delete any audio media'
+  - 'delete media'
+  - 'delete own article content'
+  - 'delete own audio media'
+  - 'delete own auglysing content'
+  - 'delete own document media'
+  - 'delete own files'
+  - 'delete own image media'
+  - 'delete own lag content'
+  - 'delete own listamadur content'
+  - 'delete own page content'
+  - 'delete own plata content'
+  - 'delete own remote_video media'
+  - 'delete own utgefandi content'
+  - 'delete own video media'
+  - 'edit own article content'
+  - 'edit own audio media'
+  - 'edit own auglysing content'
+  - 'edit own comments'
+  - 'edit own document media'
+  - 'edit own image media'
+  - 'edit own lag content'
+  - 'edit own listamadur content'
+  - 'edit own page content'
+  - 'edit own plata content'
+  - 'edit own remote_video media'
+  - 'edit own utgefandi content'
+  - 'edit own video media'
+  - 'post comments'
+  - 'update media'
+  - 'view media'
+  - 'view own unpublished content'
+  - 'view own unpublished media'

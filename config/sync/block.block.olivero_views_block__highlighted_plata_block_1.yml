@@ -1,0 +1,29 @@
+uuid: a059e7b0-3b6e-4e5a-8d67-9b9602a6cebc
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.highlighted_plata
+  module:
+    - system
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__highlighted_plata_block_1
+theme: olivero
+region: content
+weight: -7
+provider: null
+plugin: 'views_block:highlighted_plata-block_1'
+settings:
+  id: 'views_block:highlighted_plata-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /node

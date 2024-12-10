@@ -1,0 +1,29 @@
+uuid: b7157f56-d00a-47f7-aaf4-fba143f9d7e0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_utgefandi
+    - node.type.plata
+    - node.type.utgefandi
+id: node.plata.field_utgefandi
+field_name: field_utgefandi
+entity_type: node
+bundle: plata
+label: Útgefandi
+description: 'Útgefandi plötu'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      utgefandi: utgefandi
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

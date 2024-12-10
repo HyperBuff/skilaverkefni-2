@@ -1,0 +1,18 @@
+uuid: 12a41117-8919-407d-87a3-6aceab858d4a
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.plata
+id: node.plata.title
+field_name: title
+entity_type: node
+bundle: plata
+label: Titill
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

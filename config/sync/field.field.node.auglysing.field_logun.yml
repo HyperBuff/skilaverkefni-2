@@ -1,0 +1,21 @@
+uuid: 9cd08a69-ccef-4db6-9f03-94d95b451918
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_logun
+    - node.type.auglysing
+  module:
+    - options
+id: node.auglysing.field_logun
+field_name: field_logun
+entity_type: node
+bundle: auglysing
+label: Lögun
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

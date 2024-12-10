@@ -1,0 +1,21 @@
+uuid: fea6e5f3-1d5d-43f9-875e-f44cb9b0187e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_danardagur
+    - node.type.utgefandi
+  module:
+    - datetime
+id: node.utgefandi.field_danardagur
+field_name: field_danardagur
+entity_type: node
+bundle: utgefandi
+label: Dánardagur
+description: 'Hvenær hljómsveitinn hætti eða listamaður hætti/lést'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

@@ -1,0 +1,21 @@
+uuid: 7ae15ccc-8246-48eb-b9a7-657d8d8989b1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_stofndagur
+    - node.type.listamadur
+  module:
+    - datetime
+id: node.listamadur.field_stofndagur
+field_name: field_stofndagur
+entity_type: node
+bundle: listamadur
+label: Stofndagur
+description: 'Hvenær var hljómsveitinn/listamaðurinn stofnaður/byrjaði'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: datetime

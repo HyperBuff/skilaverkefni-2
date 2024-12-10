@@ -1,0 +1,18 @@
+uuid: 31913cee-a70e-4797-b3c4-28016a0ff0a6
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.utgefandi
+id: node.utgefandi.title
+field_name: title
+entity_type: node
+bundle: utgefandi
+label: Nafn
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

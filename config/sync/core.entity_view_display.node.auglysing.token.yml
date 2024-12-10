@@ -1,0 +1,60 @@
+uuid: 1a4d494b-3f18-40a7-96f4-e2ce62b31986
+langcode: en
+status: false
+dependencies:
+  config:
+    - core.entity_view_mode.node.token
+    - field.field.node.auglysing.body
+    - field.field.node.auglysing.field_hlekkur
+    - field.field.node.auglysing.field_logun
+    - field.field.node.auglysing.field_mynd
+    - node.type.auglysing
+  module:
+    - layout_builder
+    - link
+    - text
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.auglysing.token
+targetEntityType: node
+bundle: auglysing
+mode: token
+content:
+  body:
+    type: text_default
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    weight: 101
+    region: content
+  field_hlekkur:
+    type: link
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 5
+    region: content
+  field_mynd:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 100
+    region: content
+hidden:
+  field_logun: true

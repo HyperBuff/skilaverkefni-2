@@ -1,0 +1,26 @@
+uuid: 8c58e298-ef5c-43b5-a84f-ae94a3690f85
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lysing
+    - filter.format.basic_html
+    - node.type.plata
+  module:
+    - text
+id: node.plata.field_lysing
+field_name: field_lysing
+entity_type: node
+bundle: plata
+label: Lýsing
+description: Lýsing
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: false
+  required_summary: false
+  allowed_formats:
+    - basic_html
+field_type: text_with_summary

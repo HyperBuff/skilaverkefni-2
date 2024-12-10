@@ -1,0 +1,24 @@
+uuid: 23b55f4c-ebf1-410d-9ef3-34da6b980c70
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.body
+    - node.type.listamadur
+  module:
+    - text
+id: node.listamadur.body
+field_name: body
+entity_type: node
+bundle: listamadur
+label: Body
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  display_summary: true
+  required_summary: false
+  allowed_formats: {  }
+field_type: text_with_summary

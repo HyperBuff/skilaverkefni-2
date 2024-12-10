@@ -1,0 +1,21 @@
+uuid: 5eed028f-1ed0-4f26-aff3-bd57115d715d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_lengd
+    - node.type.lag
+id: node.lag.field_lengd
+field_name: field_lengd
+entity_type: node
+bundle: lag
+label: Lengd
+description: 'Lengd á lagi oftast skrifað svona "2:30 min"'
+required: true
+translatable: false
+default_value:
+  -
+    value: '2:30'
+default_value_callback: ''
+settings: {  }
+field_type: string

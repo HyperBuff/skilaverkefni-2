@@ -1,0 +1,124 @@
+uuid: ba82fc48-aaa1-41ac-a536-10b70189ae13
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.listamadur.body
+    - field.field.node.listamadur.field_danardagur
+    - field.field.node.listamadur.field_hlekkur
+    - field.field.node.listamadur.field_lysing
+    - field.field.node.listamadur.field_medlimir
+    - field.field.node.listamadur.field_myndir
+    - field.field.node.listamadur.field_stofndagur
+    - node.type.listamadur
+  module:
+    - datetime
+    - link
+    - media_library
+    - path
+    - text
+id: node.listamadur.default
+targetEntityType: node
+bundle: listamadur
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_danardagur:
+    type: datetime_default
+    weight: 29
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_hlekkur:
+    type: link_default
+    weight: 30
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_lysing:
+    type: text_textarea_with_summary
+    weight: 26
+    region: content
+    settings:
+      rows: 9
+      summary_rows: 3
+      placeholder: ''
+      show_summary: false
+    third_party_settings: {  }
+  field_medlimir:
+    type: entity_reference_autocomplete
+    weight: 31
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_myndir:
+    type: media_library_widget
+    weight: 27
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_stofndagur:
+    type: datetime_default
+    weight: 28
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    weight: 3
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    weight: 6
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    weight: 4
+    region: content
+    settings:
+      display_label: true
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 1
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  body: true

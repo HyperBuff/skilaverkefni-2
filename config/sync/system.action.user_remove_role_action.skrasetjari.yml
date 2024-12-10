@@ -1,0 +1,14 @@
+uuid: 0174b6e9-ec6d-45cd-a50e-7ff9c80dccdd
+langcode: en
+status: true
+dependencies:
+  config:
+    - user.role.skrasetjari
+  module:
+    - user
+id: user_remove_role_action.skrasetjari
+label: 'Remove the Skrásetjari role from the selected user(s)'
+type: user
+plugin: user_remove_role_action
+configuration:
+  rid: skrasetjari

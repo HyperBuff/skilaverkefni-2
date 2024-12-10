@@ -1,0 +1,18 @@
+uuid: 68c87863-d06c-4c06-a0fc-c4c09c19633b
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus:
+      - main
+    parent: 'main:'
+name: Útgefandi
+type: utgefandi
+description: 'Útgefandi plötu'
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: false

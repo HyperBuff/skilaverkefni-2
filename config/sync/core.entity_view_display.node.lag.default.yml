@@ -1,0 +1,40 @@
+uuid: d190af93-6567-410e-a987-8983329669ce
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.lag.body
+    - field.field.node.lag.field_lengd
+    - field.field.node.lag.field_youtube_link
+    - node.type.lag
+  module:
+    - user
+id: node.lag.default
+targetEntityType: node
+bundle: lag
+mode: default
+content:
+  field_lengd:
+    type: string
+    label: inline
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    weight: 2
+    region: content
+  field_youtube_link:
+    type: entity_reference_entity_view
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  links:
+    settings: {  }
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true

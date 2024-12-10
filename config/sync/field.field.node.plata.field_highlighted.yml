@@ -1,0 +1,21 @@
+uuid: 0b208cf2-f188-4de2-925d-f22d15b4e516
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_highlighted
+    - node.type.plata
+id: node.plata.field_highlighted
+field_name: field_highlighted
+entity_type: node
+bundle: plata
+label: Highlighted
+description: 'ef þessi plata er highlighted mun hún sýnast á frontpage'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

@@ -1,0 +1,29 @@
+uuid: 1f2f65ba-7170-4c53-9da3-04e7dd16ea8c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_log
+    - node.type.lag
+    - node.type.plata
+id: node.plata.field_log
+field_name: field_log
+entity_type: node
+bundle: plata
+label: Lög
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      lag: lag
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

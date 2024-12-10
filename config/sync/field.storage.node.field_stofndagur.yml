@@ -1,0 +1,20 @@
+uuid: debe2e36-3212-408b-8746-15c4a01f0fe5
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime
+    - node
+id: node.field_stofndagur
+field_name: field_stofndagur
+entity_type: node
+type: datetime
+settings:
+  datetime_type: date
+module: datetime
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

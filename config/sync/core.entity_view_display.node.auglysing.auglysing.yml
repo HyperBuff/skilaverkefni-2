@@ -1,0 +1,53 @@
+uuid: 8caa9ec0-713c-453f-9336-0fae5a488007
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.auglysing
+    - field.field.node.auglysing.body
+    - field.field.node.auglysing.field_hlekkur
+    - field.field.node.auglysing.field_logun
+    - field.field.node.auglysing.field_mynd
+    - image.style.wide
+    - node.type.auglysing
+  module:
+    - layout_builder
+    - link
+    - media
+    - user
+third_party_settings:
+  layout_builder:
+    enabled: false
+    allow_custom: false
+id: node.auglysing.auglysing
+targetEntityType: node
+bundle: auglysing
+mode: auglysing
+content:
+  field_hlekkur:
+    type: link
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    weight: 1
+    region: content
+  field_mynd:
+    type: media_thumbnail
+    label: hidden
+    settings:
+      image_link: ''
+      image_style: wide
+      image_loading:
+        attribute: lazy
+    third_party_settings: {  }
+    weight: 0
+    region: content
+hidden:
+  body: true
+  field_logun: true
+  links: true

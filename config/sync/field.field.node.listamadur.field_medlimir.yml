@@ -1,0 +1,28 @@
+uuid: c1fefde5-7fdc-4e60-b868-dc026f908760
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_medlimir
+    - node.type.listamadur
+id: node.listamadur.field_medlimir
+field_name: field_medlimir
+entity_type: node
+bundle: listamadur
+label: Meðlimir
+description: 'Meðlimir hljómsveitar'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      listamadur: listamadur
+    sort:
+      field: _none
+      direction: ASC
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

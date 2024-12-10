@@ -1,0 +1,20 @@
+uuid: dfb92abe-c211-4550-9a4a-e19094d10220
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - node
+id: node.field_youtube_link
+field_name: field_youtube_link
+entity_type: node
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

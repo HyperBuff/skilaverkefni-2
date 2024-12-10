@@ -1,0 +1,29 @@
+uuid: e9173077-da2b-455e-89ba-f840fad1fd75
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.nyjasta_platan
+  module:
+    - system
+    - views
+  theme:
+    - olivero
+id: olivero_views_block__nyjasta_platan_block_1
+theme: olivero
+region: content
+weight: -8
+provider: null
+plugin: 'views_block:nyjasta_platan-block_1'
+settings:
+  id: 'views_block:nyjasta_platan-block_1'
+  label: ''
+  label_display: '0'
+  provider: views
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    negate: false
+    pages: /node
