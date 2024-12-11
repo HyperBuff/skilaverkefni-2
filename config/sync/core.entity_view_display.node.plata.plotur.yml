@@ -17,7 +17,6 @@ dependencies:
   module:
     - datetime
     - layout_builder
-    - layout_discovery
     - media
     - user
 third_party_settings:
@@ -68,3 +67,4 @@ hidden:
   field_log: true
   field_lysing: true
   field_utgefandi: true
+  langcode: true

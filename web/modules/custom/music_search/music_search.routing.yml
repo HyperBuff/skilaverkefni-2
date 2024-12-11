@@ -1,0 +1,14 @@
+music_search.search:
+  path: '/admin/music-search/auto-complete'
+  defaults:
+    _controller: '\Drupal\music_search\Controller\MusicSearchController::auto_complete'
+  requirements:
+    _permission: 'access content'
+
+music_search.admin_settings:
+  path: '/admin/config/music-search/settings'
+  defaults:
+    _form: '\Drupal\music_search\Form\MusicSearchSettingsForm'
+    _title: 'Music Search Settings'
+  requirements:
+    _permission: 'administer site configuration'

@@ -1,0 +1,9 @@
+name: 'Music Search'
+description: 'Music Search service with spotify'
+type: module
+core_version_requirement: ^10
+package: 'Ari & Elmar INC'
+configure: music_search.admin_settings
+dependencies:
+  - drupal:node
+  - music_search:spotify_lookup

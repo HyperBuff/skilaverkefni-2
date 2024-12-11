@@ -1,0 +1,16 @@
+spotify_lookup.admin_settings:
+  path: '/admin/config/spotify-lookup/settings'
+  defaults:
+    _form: '\Drupal\spotify_lookup\Form\SpotifyLookupSettingsForm'
+    _title: 'Spotify Lookup Settings'
+  requirements:
+    _permission: 'administer site configuration'
+
+spotify_lookup.search:
+  path: '/spotify-lookup/{query}'
+  defaults:
+    _controller: '\Drupal\spotify_lookup\Controller\SpotifyLookupController::search'
+    _title: 'Spotify Search'
+  requirements:
+    _permission: 'access content'
+

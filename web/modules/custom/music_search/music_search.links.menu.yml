@@ -1,0 +1,6 @@
+music_search.settings:
+  title: 'Music Search Settings'
+  description: 'Configure the settings'
+  parent: system.admin_config
+  route_name: music_search.admin_settings
+  weight: 100

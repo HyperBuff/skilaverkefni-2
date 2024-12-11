@@ -32,3 +32,4 @@ content:
 hidden:
   field_lengd: true
   field_youtube_link: true
+  langcode: true

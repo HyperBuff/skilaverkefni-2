@@ -40,3 +40,4 @@ hidden:
   field_medlimir: true
   field_myndir: true
   field_stofndagur: true
+  langcode: true

@@ -1,0 +1,4 @@
+services:
+  spotify_lookup.service:
+    class: Drupal\spotify_lookup\Service\SpotifyLookupService
+    arguments: ['@http_client']

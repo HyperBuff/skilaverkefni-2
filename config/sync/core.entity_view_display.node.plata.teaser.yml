@@ -42,3 +42,4 @@ hidden:
   field_mynd: true
   field_utgafuar: true
   field_utgefandi: true
+  langcode: true

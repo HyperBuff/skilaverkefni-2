@@ -78,3 +78,4 @@ content:
 hidden:
   body: true
   field_highlighted: true
+  langcode: true

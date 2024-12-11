@@ -34,3 +34,4 @@ hidden:
   field_hlekkur: true
   field_logun: true
   field_mynd: true
+  langcode: true

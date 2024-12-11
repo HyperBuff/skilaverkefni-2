@@ -50,4 +50,5 @@ content:
 hidden:
   body: true
   field_logun: true
+  langcode: true
   links: true

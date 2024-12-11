@@ -58,3 +58,4 @@ content:
     region: content
 hidden:
   field_logun: true
+  langcode: true
