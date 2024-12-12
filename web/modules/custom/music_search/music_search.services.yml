@@ -1,6 +1,4 @@
 services:
-  music_search.redirect_subscriber:
-    class: 'Drupal\music_search\EventSubscriber\MusicSearchRedirectSubscriber'
-    arguments: ['@current_user', '@current_route_match']
-    tags:
-      - { name: event_subscriber }
+  spotify.lookup.service:
+    class: Drupal\spotify_lookup\Service\SpotifyLookupService
+    arguments: [ '@http_client' ]

@@ -1,14 +1,57 @@
+music_search.overview:
+  path: '/admin/music-search'
+  defaults:
+    _title: "Overview"
+    _controller: '\Drupal\music_search\Controller\MusicSearchController::music_search_page'
+  requirements:
+    _permission: 'access content'
+
 music_search.search:
+  path: '/admin/music-search/search'
+  defaults:
+    _title: "Search"
+    _form: '\Drupal\music_search\Form\MusicSearchForm'
+  requirements:
+    _permission: 'access content'
+
+music_search.create_artist:
+  path: '/admin/music-search/create_artist'
+  defaults:
+    _title: "Create artist"
+    _form: '\Drupal\music_search\Form\MusicSearchForm'
+  requirements:
+    _permission: 'access content'
+
+music_search.create_track:
+  path: '/admin/music-search/create_track'
+  defaults:
+    _title: "Create track"
+    _form: '\Drupal\music_search\Form\MusicSearchForm'
+  requirements:
+    _permission: 'access content'
+
+
+music_search.create_album:
+  path: '/admin/music-search/create_album'
+  defaults:
+    _title: "Create Album"
+    _form: '\Drupal\music_search\Form\MusicSearchForm'
+  requirements:
+    _permission: 'access content'
+
+music_search.results:
+  path: '/admin/music-search/results/{query}'
+  defaults:
+    _controller: '\Drupal\music_search\Controller\MusicSearchController::results_page'
+    _title: "Results"
+  requirements:
+    _permission: 'access content'
+
+
+music_search.auto_complete_search:
   path: '/admin/music-search/auto-complete'
   defaults:
     _controller: '\Drupal\music_search\Controller\MusicSearchController::auto_complete'
   requirements:
     _permission: 'access content'
 
-music_search.admin_settings:
-  path: '/admin/config/music-search/settings'
-  defaults:
-    _form: '\Drupal\music_search\Form\MusicSearchSettingsForm'
-    _title: 'Music Search Settings'
-  requirements:
-    _permission: 'administer site configuration'

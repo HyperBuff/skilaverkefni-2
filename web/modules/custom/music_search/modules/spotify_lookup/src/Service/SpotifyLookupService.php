@@ -55,5 +55,14 @@ class SpotifyLookupService {
     }
   }
 
+  public function getItemById($type, $id) {
+    try {
+      $accessToken = $this->getAccessToken();
+    }
+    catch (\Exception $e) {
+
+    }
+  }
+
 
 }

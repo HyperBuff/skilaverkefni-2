@@ -22,3 +22,14 @@ function music_search_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
+
+/**
+ * Implements hook_theme()
+ */
+function music_search_theme() {
+  return [
+    'music_search_page' => [
+      'variables' =>['form' => NULL],
+    ],
+  ];
+}

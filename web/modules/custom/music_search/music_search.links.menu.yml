@@ -1,6 +1,28 @@
-music_search.settings:
-  title: 'Music Search Settings'
-  description: 'Configure the settings'
-  parent: system.admin_config
-  route_name: music_search.admin_settings
+
+music_search.overview:
+  title: "Music Search"
+  description: "Search for music from different sources."
+  route_name: music_search.overview
+  parent: system.admin_content
   weight: 100
+
+music_search.create_album:
+  title: "Create Album"
+  description: "Create an album from Spotify and Discogs."
+  parent: music_search.overview
+  route_name: music_search.create_album
+  weight: 0
+
+music_search.create_artist:
+  title: "Create Artist"
+  description: "Create an artist from Spotify and Discogs."
+  parent: music_search.overview
+  route_name: music_search.create_artist
+  weight: 0
+
+music_search.create_track:
+  title: "Create Track"
+  description: "Create an track from Spotify and Discogs."
+  parent: music_search.overview
+  route_name: music_search.create_track
+  weight: 0
