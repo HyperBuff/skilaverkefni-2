@@ -1,5 +1,5 @@
 name: 'Spotify Lookup'
-description: 'Fetches data from shopify API'
+description: 'Fetches data from spotify API'
 type: module
 core_version_requirement: ^10
 package: 'Ari & Elmar INC'
