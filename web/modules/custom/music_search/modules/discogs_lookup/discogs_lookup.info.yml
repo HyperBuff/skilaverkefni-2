@@ -1,0 +1,7 @@
+name: 'Discogs Lookup'
+description: 'Fetches data from discogs API'
+type: module
+core_version_requirement: ^10
+package: 'Ari & Elmar INC'
+configure: discogs_lookup.admin_settings
+dependencies: []
