@@ -18,19 +18,18 @@ class DiscogsLookupService {
 
   private function getAccessToken() {
     $config = \Drupal::config('discogs_lookup.settings');
-    $token = $config->get('discogs_api_token');
-    return $token;
+    return $config->get('discogs_api_token');
   }
 
-  public function DiscogsSearch($query) {
+  public function DiscogsSearch($query, $type) {
     $access_token = $this->getAccessToken();
     try {
       $response = $this->client->get('database/search', [
         'query' => [
           'q' => $query,
-          'type' => 'artist,master,track',
+          'type' => $type,
           'token' => $access_token,
-          'per_page' => 20,
+          'per_page' => 5,
         ],
       ]);
       return json_decode($response->getBody(), true);
@@ -39,6 +38,23 @@ class DiscogsLookupService {
       return [];
     }
   }
+
+
+  public function getArtistById($id) {
+    $access_token = $this->getAccessToken();
+    try {
+      $response = $this->client->get('artists/' . $id, [
+        'query' => [
+          'token' => $access_token,
+        ],
+      ]);
+      return json_decode($response->getBody(), true);
+    } catch (\Exception $e) {
+      \Drupal::logger('discogs_lookup')->error('Discogs API error: @message', ['@message' => $e->getMessage()]);
+      return [];
+    }
+  }
+
 
 
 }

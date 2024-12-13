@@ -1,11 +1,17 @@
 <?php
 
+
+
+
 /**
  * @file
  * Music Search module file.
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\Entity\NodeType;
+use Drupal\field\Entity\FieldStorageConfig;
+use Drupal\field\Entity\FieldConfig;
 
 /**
  * Implements hook_help().
@@ -32,4 +38,31 @@ function music_search_theme() {
       'variables' =>['form' => NULL],
     ],
   ];
+}
+
+
+/**
+ * Implements hook_install()
+ */
+
+function music_search_install() {
+  if (!NodeType::load('artist')) {
+    NodeType::create([
+      'type' => 'artist',
+      'name' => 'Artist',
+    ])->save();
+  }
+  if (!FieldStorageConfig::loadByName('node', 'field_artist_name')) {
+  \Drupal\field\Entity\FieldStorageConfig::create([
+    'field_name' => 'field_artist_name',
+    'entity_type' => 'node',
+    'type' => 'string',
+  ])->save();
+  }
+  \Drupal\field\Entity\FieldConfig::create([
+    'field_name' => 'field_artist_name',
+    'entity_type' => 'node',
+    'bundle' => 'artist',
+    'label' => 'Artist Name',
+  ])->save();
 }

@@ -17,7 +17,7 @@ music_search.create_artist:
   title: "Create Artist"
   description: "Create an artist from Spotify and Discogs."
   parent: music_search.overview
-  route_name: music_search.create_artist
+  route_name: music_search.search_artist
   weight: 0
 
 music_search.create_track:

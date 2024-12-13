@@ -2,3 +2,6 @@ services:
   spotify.lookup.service:
     class: Drupal\spotify_lookup\Service\SpotifyLookupService
     arguments: [ '@http_client' ]
+  discogs.lookup.service:
+    class: Drupal\discogs_lookup\Service\DiscogsLookupService
+    arguments: ['@http_client']

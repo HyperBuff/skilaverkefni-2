@@ -3,9 +3,14 @@
 namespace Drupal\music_search\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
+use Drupal\discogs_lookup\Service\DiscogsLookupService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\spotify_lookup\Service\SpotifyLookupService;
+use Drupal\Core\Link;
+use Drupal\Core\Url;
+use Drupal\spotify_lookup\SpotifyData;
+
 
 /**
  * Define MusicSearchController Class
@@ -16,24 +21,31 @@ class MusicSearchController extends ControllerBase {
      * Search Services
      *
      * @var SpotifyLookupService
+     * @var DiscogsLookupService
      */
     protected $spotifyLookupService;
+    protected $discogsLookupService;
 
     /**
      * Constructor for search services
      *
      * @param SpotifyLookupService $spotifyLookupService
      *  Spotify Search Service
+     * @param DiscogsLookupService $discogsLookupService
+     *  Discogs Search Service
      */
 
 
-    public function __construct(SpotifyLookupService $spotifyLookupService) {
+
+    public function __construct(SpotifyLookupService $spotifyLookupService, DiscogsLookupService $discogsLookupService) {
         $this->spotifyLookupService = $spotifyLookupService;
+        $this->discogsLookupService = $discogsLookupService;
     }
 
     public static function create(ContainerInterface $container) {
         return new static(
-            $container->get('spotify.lookup.service')
+            $container->get('spotify.lookup.service'),
+            $container->get('discogs.lookup.service'),
         );
     }
 
@@ -58,24 +70,22 @@ class MusicSearchController extends ControllerBase {
 
     public function auto_complete() {
         $query = \Drupal::request()->query->get('q');
-        $results = $this->spotifyLookupService->SpotifySearch($query, 'album');
+        $type = \Drupal::request()->query->get('type');
+        $results = $this->spotifyLookupService->SpotifySearch($query, $type);
         $suggestions = [];
 
         if (!empty($results['artists']['items'])) {
             foreach ($results['artists']['items'] as $artist) {
-                $id = $artist['id'];
                 $name = $artist['name'];
-                $type = $artist['type'];
                 $suggestions[] = [
-                    'value' => $name . ' - ' . $type,
-                    'label' => $this->t( $type . ': ' . $name),
+                    'value' => $name,
+                    'label' => $this->t( $name),
                 ];
             }
         }
 
         if (!empty($results['tracks']['items'])) {
             foreach ($results['tracks']['items'] as $track) {
-                $id = $track['id'];
                 $name = $track['name'];
                 $type = $track['type'];
                 $artist = $track['artists'][0]['name'];
@@ -103,40 +113,151 @@ class MusicSearchController extends ControllerBase {
         return new JsonResponse($suggestions);
     }
 
-    public function results_page($query) {
-        $results = $this->spotifyLookupService->SpotifySearch($query);
+    /**
+     * CreateSpotifyTable
+     * Construct Spotify Table
+     * @param $type
+     * @param $query
+     * @return array
+     */
+    public function create_spotify_table($type, $query) {
+        $results = $this->spotifyLookupService->SpotifySearch($query, $type);
 
-        // Build the results page.
-        $output = '<h2>Search Results for: ' . htmlspecialchars($query) . '</h2>';
+        $header = [
+            $this->t('Select'),
+            $this->t('Image'),
+            $this->t('Name'),
+            $this->t('Type'),
+            $this->t('Spotify ID'),
+        ];
 
-        // Display artists, tracks, and albums.
+        $rows = [];
+
         if (!empty($results['artists']['items'])) {
-            $output .= '<h3>Artists</h3><ul>';
             foreach ($results['artists']['items'] as $artist) {
-                $output .= '<li>' . htmlspecialchars($artist['name']) . '</li>';
-            }
-            $output .= '</ul>';
-        }
+                $artistData = new SpotifyData((object) [
+                    'id' => $artist['id'],
+                    'name' => $artist['name'],
+                    'type' => $artist['type'],
+                    'image' => $artist['images'][0]['url'],
+                    'selected' => false,
+                ]);
 
-        if (!empty($results['tracks']['items'])) {
-            $output .= '<h3>Tracks</h3><ul>';
-            foreach ($results['tracks']['items'] as $track) {
-                $output .= '<li>' . htmlspecialchars($track['name']) . '</li>';
+                $rows[] = [
+                    'data' => [
+                        [
+                            'data' => [
+                                '#type' => 'radio',
+                                '#name' => 'spotify_selection',
+                                '#value' => $artistData->getId(),
+                                '#attributes' => [
+                                    'data-name' => $artistData->getName(),
+                                    'data-type' => $artistData->getType(),
+                                    'data-image' => $artistData->getImage(),
+                                ],
+                            ],
+                        ],
+                        [
+                            'data' => [
+                                '#type' => 'html_tag',
+                                '#tag' => 'img',
+                                '#attributes' => [
+                                    'src' => $artistData->getImage(),
+                                    'alt' => $artistData->getName(),
+                                    'style' => 'width: 50px; height: 50px; object-fit: contain;',
+                                ],
+                            ],
+                        ],
+                        htmlspecialchars($artistData->getName()),
+                        htmlspecialchars($artistData->getType()),
+                        htmlspecialchars($artistData->getId()),
+                    ],
+                ];
             }
-            $output .= '</ul>';
-        }
-
-        if (!empty($results['albums']['items'])) {
-            $output .= '<h3>Albums</h3><ul>';
-            foreach ($results['albums']['items'] as $album) {
-                $output .= '<li>' . htmlspecialchars($album['name']) . '</li>';
-            }
-            $output .= '</ul>';
         }
 
         return [
-            '#markup' => $output,
+            '#type' => 'table',
+            '#header' => $header,
+            '#rows' => $rows,
+            '#empty' => $this->t('No results found for your query.'),
         ];
     }
+
+
+    public function create_discogs_table($query, $type) {
+        $results = $this->discogsLookupService->DiscogsSearch($query, $type);
+
+        // Define the table header.
+        $header = [
+            $this->t('Select'),
+            $this->t('Image'),
+            $this->t('Name'),
+            $this->t('Type'),
+            $this->t('Discogs ID'),
+        ];
+
+        $rows = [];
+
+        if (!empty($results['results'])) {
+            foreach ($results['results'] as $artist) {
+                $image_url = !empty($artist['thumb']) ? $artist['thumb'] : '';
+
+                $rows[] = [
+                    'data' => [
+                        [
+                            'data' => [
+                                '#type' => 'radio',
+                                '#name' => 'discogs_selection',
+                                '#value' => $artist['id'],
+                                '#attributes' => [
+                                    'data-name' => $artist['title'],
+                                    'data-type' => $artist['type'],
+                                    'data-image' => $image_url,
+                                ],
+                            ],
+                        ],
+                        [
+                            'data' => [
+                                '#type' => 'html_tag',
+                                '#tag' => 'img',
+                                '#attributes' => [
+                                    'src' => $image_url,
+                                    'alt' => $artist['title'],
+                                    'style' => 'width: 50px; height: 50px; object-fit: cover;',
+                                ],
+                            ],
+                        ],
+                        htmlspecialchars($artist['title']),
+                        htmlspecialchars($artist['type']),
+                        htmlspecialchars($artist['id']),
+                    ],
+                ];
+            }
+        }
+
+        // Render the table.
+        return [
+            '#type' => 'table',
+            '#header' => $header,
+            '#rows' => $rows,
+            '#empty' => $this->t('No results found for your query on Discogs.'),
+        ];
+    }
+
+    public function results_page($type, $query) {
+
+        return [
+            'spotify_section' => [
+                '#type' => 'details',
+                '#title' => $this->t('Spotify Results'),
+                '#open' => TRUE,
+                'content' => $this->create_spotify_table($type, $query),
+            ],
+        ];
+    }
+
+
+
 
 }

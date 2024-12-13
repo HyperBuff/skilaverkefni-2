@@ -7,3 +7,4 @@ configure: music_search.admin_settings
 dependencies:
   - drupal:node
   - music_search:spotify_lookup
+  - music_search:discogs_lookup

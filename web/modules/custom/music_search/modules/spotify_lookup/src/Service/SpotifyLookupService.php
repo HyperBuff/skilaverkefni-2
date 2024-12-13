@@ -35,7 +35,7 @@ class SpotifyLookupService {
       return $data['access_token'];
     }
 
-  public function SpotifySearch($query) {
+  public function SpotifySearch($query, $type) {
     try {
       $accessToken = $this->getAccessToken();
       $response = $this->client->get('search', [
@@ -44,8 +44,8 @@ class SpotifyLookupService {
         ],
         'query' => [
           'q' => $query,
-          'type' => 'track,album,artist',
-          'limit' => 10,
+          'type' => $type,
+          'limit' => 5,
         ],
       ]);
       return json_decode($response->getBody(), true);
@@ -55,14 +55,21 @@ class SpotifyLookupService {
     }
   }
 
-  public function getItemById($type, $id) {
+  public function getArtistById($id) {
     try {
       $accessToken = $this->getAccessToken();
-    }
-    catch (\Exception $e) {
-
+      $response = $this->client->get('artists/' . $id, [
+        'headers' => [
+          'Authorization' => 'Bearer ' . $accessToken,
+        ],
+      ]);
+      return json_decode($response->getBody(), true);
+    } catch (\Exception $e) {
+      \Drupal::logger('spotify_lookup')->error('Spotify API error: @message', ['@message' => $e->getMessage()]);
+      return [];
     }
   }
+
 
 
 }

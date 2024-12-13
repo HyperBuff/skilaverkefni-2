@@ -7,7 +7,7 @@ discogs_lookup.admin_settings:
     _permission: 'administer site configuration'
 
 discogs_lookup.search:
-  path: '/discogs-lookup/{query}'
+  path: '/discogs-lookup/{query}/{type}'
   defaults:
     _controller: '\Drupal\discogs_lookup\Controller\DiscogsLookupController::search'
     _title: 'Discogs Search'

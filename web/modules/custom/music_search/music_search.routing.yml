@@ -14,11 +14,19 @@ music_search.search:
   requirements:
     _permission: 'access content'
 
-music_search.create_artist:
-  path: '/admin/music-search/create_artist'
+music_search.search_artist:
+  path: '/admin/music-search/search_artist'
   defaults:
-    _title: "Create artist"
-    _form: '\Drupal\music_search\Form\MusicSearchForm'
+    _title: "Search artist"
+    _form: '\Drupal\music_search\Form\MusicSearchArtistForm'
+  requirements:
+    _permission: 'access content'
+
+music_search.create_artist:
+  path: '/admin/music-search/create_artist/{spotify_id}/{discogs_id}'
+  defaults:
+    _title: "Create Artist"
+    _form: '\Drupal\music_search\Form\MusicSearchCreateArtistForm'
   requirements:
     _permission: 'access content'
 
@@ -40,9 +48,9 @@ music_search.create_album:
     _permission: 'access content'
 
 music_search.results:
-  path: '/admin/music-search/results/{query}'
+  path: '/admin/music-search/results/{type}/{query}'
   defaults:
-    _controller: '\Drupal\music_search\Controller\MusicSearchController::results_page'
+    _form: '\Drupal\music_search\Form\ArtistSelectionForm'
     _title: "Results"
   requirements:
     _permission: 'access content'

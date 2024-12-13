@@ -48,8 +48,8 @@ class DiscogsLookupController extends ControllerBase {
    *  returns array
    */
 
-  public function search($query) {
-    $results = $this->discogsLookupService->DiscogsSearch($query);
+  public function search($query, $type) {
+    $results = $this->discogsLookupService->DiscogsSearch($query, $type);
 
     // Check if there are any results.
     if (empty($results['results'])) {
