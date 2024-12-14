@@ -8,6 +8,7 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\discogs_lookup\Service\DiscogsLookupService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\spotify_lookup\Service\SpotifyLookupService;
+use Drupal\spotify_lookup\SpotifyData;
 
 class ArtistSelectionForm extends FormBase implements ContainerInjectionInterface
 {
@@ -240,12 +241,19 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
     $spotify_id = $form_state->getValue('spotify_selection');
     $discogs_id = $form_state->getValue('discogs_selection');
 
-    $form_state->setRedirect(
-      'music_search.create_artist',
-      [
-        'spotify_id' => $spotify_id,
-        'discogs_id' => $discogs_id,
-      ]
-    );
+    if ($spotify_id && $discogs_id) {
+        $form_state->setRedirect(
+            'music_search.create_artist',
+            [
+                'spotify_id' => $spotify_id,
+                'discogs_id' => $discogs_id,
+            ]
+        );
+
+    }
+    else {
+        \Drupal::messenger()->addError($this->t('You need to add both discogs and spotify item to continue'));
+    }
+
   }
 }

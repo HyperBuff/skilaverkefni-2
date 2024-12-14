@@ -7,8 +7,6 @@ use Drupal\discogs_lookup\Service\DiscogsLookupService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\spotify_lookup\Service\SpotifyLookupService;
-use Drupal\Core\Link;
-use Drupal\Core\Url;
 use Drupal\spotify_lookup\SpotifyData;
 
 
