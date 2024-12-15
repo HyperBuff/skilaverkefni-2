@@ -161,7 +161,7 @@ class MusicSearchCreateTrackForm extends FormBase {
 
     // Create the album node
     $node = Node::create([
-      'type' => 'plata', // Content type machine name
+      'type' => 'lag', // Content type machine name
       'title' => $title,
       'field_spotify_id' => $spotify_id,
       'field_discogs_id' => $discogs_id,
