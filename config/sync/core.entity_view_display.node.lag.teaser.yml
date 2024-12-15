@@ -5,7 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.lag.body
+    - field.field.node.lag.field_discogs_id
     - field.field.node.lag.field_lengd
+    - field.field.node.lag.field_spotify_id
     - field.field.node.lag.field_youtube_link
     - node.type.lag
   module:
@@ -30,6 +32,8 @@ content:
     weight: 100
     region: content
 hidden:
+  field_discogs_id: true
   field_lengd: true
+  field_spotify_id: true
   field_youtube_link: true
   langcode: true

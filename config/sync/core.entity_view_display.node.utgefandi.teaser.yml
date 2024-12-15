@@ -5,11 +5,9 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.utgefandi.body
-    - field.field.node.utgefandi.field_danardagur
     - field.field.node.utgefandi.field_hlekkur
     - field.field.node.utgefandi.field_logo
     - field.field.node.utgefandi.field_lysing
-    - field.field.node.utgefandi.field_medlimir
     - field.field.node.utgefandi.field_myndir
     - field.field.node.utgefandi.field_stofndagur
     - node.type.utgefandi
@@ -36,10 +34,8 @@ content:
     region: content
 hidden:
   body: true
-  field_danardagur: true
   field_hlekkur: true
   field_logo: true
-  field_medlimir: true
   field_myndir: true
   field_stofndagur: true
   langcode: true

@@ -59,11 +59,6 @@ class MusicSearchCreateTrackForm extends FormBase {
     $track = new MusicSearchTrackData($spotify_results, $discogs_results);
 
 
-
-    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [
-      '@result' => json_encode($track->discogs_data, JSON_PRETTY_PRINT),
-    ]));
-
 //    \Drupal::messenger()->addMessage($this->t('images: @result', [
 //      '@result' => json_encode($artist->get_images(), JSON_PRETTY_PRINT),
 //    ]));
@@ -122,72 +117,69 @@ class MusicSearchCreateTrackForm extends FormBase {
   /**
    * {@inheritdoc}
    */
+  /**
+   * {@inheritdoc}
+   */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
     $spotify_id = \Drupal::routeMatch()->getParameter('spotify_id');
     $discogs_id = \Drupal::routeMatch()->getParameter('discogs_id');
     $values = $form_state->getValues();
 
-    // Retrieve form values
     $title = $values['title'];
-    $description = $values['field_lysing']['value'] ?? '';
-    $description_format = $values['field_lysing']['format'] ?? 'full_html';
-    $released = $values['field_utgafuar'] ?? NULL;
-    $highlighted = $values['field_highlighted'] ?? FALSE;
-    $selected_image_url = $values['images_table']['select'] ?? NULL;
+    $selected_link_url = $values['links_table']['select'] ?? NULL;
 
-    // Handle media creation for field_mynd (Image)
-    $media = NULL;
-    if (!empty($selected_image_url)) {
-      $media = $this->helper->create_media_from_external_image($selected_image_url, $title);
+    $youtube_media = NULL;
+    if (!empty($selected_link_url)) {
+      $youtube_media = $this->createOrLoadMedia($selected_link_url, $title);
     }
 
-    $field_listamadur_values = $values['field_listamadur'] ?? [];
-    $listamadur_references = [];
-    foreach ($field_listamadur_values as $item) {
-      if (!empty($item['target_id'])) {
-        $listamadur_references[] = ['target_id' => $item['target_id']];
-      }
-    }
+    $length = $values['field_lengd'] ?? '';
+    $spotify_id = $values['field_spotify_id'] ?? '';
+    $discogs_id = $values['field_discogs_id'] ?? '';
 
-// Process field_utgefandi (Labels)
-    $field_utgefandi_values = $values['field_utgefandi'] ?? [];
-    $utgefandi_references = [];
-    foreach ($field_utgefandi_values as $item) {
-      if (!empty($item['target_id'])) {
-        $utgefandi_references[] = ['target_id' => $item['target_id']];
-      }
-    }
-
-    // Create the album node
     $node = Node::create([
-      'type' => 'lag', // Content type machine name
+      'type' => 'lag',
       'title' => $title,
+      'field_lengd' => $length,
       'field_spotify_id' => $spotify_id,
       'field_discogs_id' => $discogs_id,
-      'field_lysing' => [
-        'value' => $description,
-        'format' => $description_format,
-      ],
-      'field_mynd' => $media ? [['target_id' => $media->id(), 'alt' => $title]] : [],
-      'field_utgafuar' => $released,
-      'field_highlighted' => $highlighted,
-      'field_listamadur' => $listamadur_references,
-      'field_utgefandi' => $utgefandi_references,
+      'field_youtube_link' => $youtube_media ? [['target_id' => $youtube_media->id()]] : [],
     ]);
 
-    // Save the node
     $node->save();
 
-    // Redirect to the newly created node's page
     $form_state->setRedirect(
       'entity.node.canonical',
       ['node' => $node->id()]
     );
 
-    // Add a confirmation message
-    $this->messenger()->addMessage($this->t('The album %name has been created.', ['%name' => $title]));
+    $this->messenger()->addMessage($this->t('The track %name has been created.', ['%name' => $title]));
   }
+
+  /**
+   * Helper function to create or load a media entity for a YouTube link.
+   */
+  protected function createOrLoadMedia(string $url, string $title) {
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    $existing_media = $media_storage->loadByProperties(['field_media_oembed_video' => $url]);
+
+    if (!empty($existing_media)) {
+      return reset($existing_media);
+    }
+
+    $media = $media_storage->create([
+      'bundle' => 'remote_video',
+      'name' => $title,
+      'uid' => \Drupal::currentUser()->id(),
+      'status' => 1,
+      'field_media_oembed_video' => $url,
+    ]);
+    $media->save();
+
+    return $media;
+  }
+
 
 
 }

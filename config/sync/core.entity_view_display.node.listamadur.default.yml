@@ -5,10 +5,12 @@ dependencies:
   config:
     - field.field.node.listamadur.body
     - field.field.node.listamadur.field_danardagur
+    - field.field.node.listamadur.field_discogs_id
     - field.field.node.listamadur.field_hlekkur
     - field.field.node.listamadur.field_lysing
     - field.field.node.listamadur.field_medlimir
     - field.field.node.listamadur.field_myndir
+    - field.field.node.listamadur.field_spotify_id
     - field.field.node.listamadur.field_stofndagur
     - node.type.listamadur
   module:
@@ -82,4 +84,6 @@ content:
     region: content
 hidden:
   body: true
+  field_discogs_id: true
+  field_spotify_id: true
   langcode: true

@@ -4,11 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.utgefandi.body
-    - field.field.node.utgefandi.field_danardagur
     - field.field.node.utgefandi.field_hlekkur
     - field.field.node.utgefandi.field_logo
     - field.field.node.utgefandi.field_lysing
-    - field.field.node.utgefandi.field_medlimir
     - field.field.node.utgefandi.field_myndir
     - field.field.node.utgefandi.field_stofndagur
     - image.style.large
@@ -24,15 +22,6 @@ targetEntityType: node
 bundle: utgefandi
 mode: default
 content:
-  field_danardagur:
-    type: datetime_default
-    label: inline
-    settings:
-      timezone_override: ''
-      format_type: olivero_medium
-    third_party_settings: {  }
-    weight: 3
-    region: content
   field_hlekkur:
     type: link
     label: hidden
@@ -60,14 +49,6 @@ content:
     settings: {  }
     third_party_settings: {  }
     weight: 1
-    region: content
-  field_medlimir:
-    type: entity_reference_label
-    label: inline
-    settings:
-      link: true
-    third_party_settings: {  }
-    weight: 5
     region: content
   field_myndir:
     type: media_thumbnail

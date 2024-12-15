@@ -4,11 +4,13 @@ status: true
 dependencies:
   config:
     - field.field.node.plata.body
+    - field.field.node.plata.field_discogs_id
     - field.field.node.plata.field_highlighted
     - field.field.node.plata.field_listamadur
     - field.field.node.plata.field_log
     - field.field.node.plata.field_lysing
     - field.field.node.plata.field_mynd
+    - field.field.node.plata.field_spotify_id
     - field.field.node.plata.field_utgafuar
     - field.field.node.plata.field_utgefandi
     - node.type.plata
@@ -27,6 +29,14 @@ content:
     weight: 2
     region: content
     settings: {  }
+    third_party_settings: {  }
+  field_discogs_id:
+    type: string_textfield
+    weight: 33
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_highlighted:
     type: boolean_checkbox
@@ -71,6 +81,14 @@ content:
     region: content
     settings:
       media_types: {  }
+    third_party_settings: {  }
+  field_spotify_id:
+    type: string_textfield
+    weight: 32
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
     third_party_settings: {  }
   field_utgafuar:
     type: datetime_default

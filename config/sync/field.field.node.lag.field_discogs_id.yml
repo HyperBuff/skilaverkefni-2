@@ -1,0 +1,19 @@
+uuid: a1975bc3-ada9-4b16-a0d2-a69a84354e33
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_discogs_id
+    - node.type.lag
+id: node.lag.field_discogs_id
+field_name: field_discogs_id
+entity_type: node
+bundle: lag
+label: 'Discogs ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

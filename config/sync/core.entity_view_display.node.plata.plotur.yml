@@ -5,11 +5,13 @@ dependencies:
   config:
     - core.entity_view_mode.node.plotur
     - field.field.node.plata.body
+    - field.field.node.plata.field_discogs_id
     - field.field.node.plata.field_highlighted
     - field.field.node.plata.field_listamadur
     - field.field.node.plata.field_log
     - field.field.node.plata.field_lysing
     - field.field.node.plata.field_mynd
+    - field.field.node.plata.field_spotify_id
     - field.field.node.plata.field_utgafuar
     - field.field.node.plata.field_utgefandi
     - image.style.medium
@@ -63,8 +65,10 @@ content:
     region: content
 hidden:
   body: true
+  field_discogs_id: true
   field_highlighted: true
   field_log: true
   field_lysing: true
+  field_spotify_id: true
   field_utgefandi: true
   langcode: true

@@ -1,0 +1,19 @@
+uuid: 7671fdc0-87e1-4934-8ca0-8875bb25bf2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_spotify_id
+    - node.type.listamadur
+id: node.listamadur.field_spotify_id
+field_name: field_spotify_id
+entity_type: node
+bundle: listamadur
+label: 'Spotify ID'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

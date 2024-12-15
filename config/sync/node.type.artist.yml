@@ -1,0 +1,11 @@
+uuid: ed6dad90-0736-4ad4-b239-12b6c8860dff
+langcode: en
+status: true
+dependencies: {  }
+name: Artist
+type: artist
+description: null
+help: null
+new_revision: true
+preview_mode: 1
+display_submitted: true

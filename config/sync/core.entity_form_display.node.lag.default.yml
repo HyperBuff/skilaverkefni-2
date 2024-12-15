@@ -4,7 +4,9 @@ status: true
 dependencies:
   config:
     - field.field.node.lag.body
+    - field.field.node.lag.field_discogs_id
     - field.field.node.lag.field_lengd
+    - field.field.node.lag.field_spotify_id
     - field.field.node.lag.field_youtube_link
     - node.type.lag
   module:
@@ -21,9 +23,25 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_discogs_id:
+    type: string_textfield
+    weight: 33
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
   field_lengd:
     type: string_textfield
     weight: 27
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_spotify_id:
+    type: string_textfield
+    weight: 32
     region: content
     settings:
       size: 60

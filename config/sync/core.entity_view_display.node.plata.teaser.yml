@@ -5,11 +5,13 @@ dependencies:
   config:
     - core.entity_view_mode.node.teaser
     - field.field.node.plata.body
+    - field.field.node.plata.field_discogs_id
     - field.field.node.plata.field_highlighted
     - field.field.node.plata.field_listamadur
     - field.field.node.plata.field_log
     - field.field.node.plata.field_lysing
     - field.field.node.plata.field_mynd
+    - field.field.node.plata.field_spotify_id
     - field.field.node.plata.field_utgafuar
     - field.field.node.plata.field_utgefandi
     - node.type.plata
@@ -35,11 +37,13 @@ content:
     weight: 100
     region: content
 hidden:
+  field_discogs_id: true
   field_highlighted: true
   field_listamadur: true
   field_log: true
   field_lysing: true
   field_mynd: true
+  field_spotify_id: true
   field_utgafuar: true
   field_utgefandi: true
   langcode: true
