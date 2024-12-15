@@ -8,13 +8,17 @@ use Drupal\Core\DependencyInjection\ContainerInjectionInterface;
 use Drupal\discogs_lookup\Service\DiscogsLookupService;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\spotify_lookup\Service\SpotifyLookupService;
-use Drupal\spotify_lookup\SpotifyData;
 
-class ArtistSelectionForm extends FormBase implements ContainerInjectionInterface
+class MusicSearchSelectionForm extends FormBase implements ContainerInjectionInterface
 {
 
   protected $spotifyLookupService;
   protected $discogsLookupService;
+  public $artist_name;
+  public $album_name;
+  public $track_name;
+
+  public $node_id;
 
   /**
    * Constructor.
@@ -23,6 +27,10 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
   {
     $this->spotifyLookupService = $spotifyLookupService;
     $this->discogsLookupService = $discogsLookupService;
+    $this->artist_name = '';
+    $this->album_name = '';
+    $this->track_name = '';
+    $this->node_id = '';
   }
 
   /**
@@ -52,6 +60,34 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
   {
     $type = \Drupal::routeMatch()->getParameter('type');
     $query = \Drupal::routeMatch()->getParameter('query');
+    $spotify_query = $query;
+
+    if ($type == 'album' || $type == 'track') {
+      $parts = explode('?', $query);
+      $params = [];
+      foreach ($parts as $part) {
+        parse_str($part, $result);
+        $params = array_merge($params, $result);
+      }
+
+      $this->artist_name = $params['artist_name'] ?? '';
+      $this->album_name = $params['album_name'] ?? '';
+      $this->track_name = $params['track_name'] ?? '';
+      $this->node_id = $params['node_id'] ?? '';
+
+      \Drupal::messenger()->addMessage('track_name'. $this->track_name);
+
+
+      if ($type == 'album') {
+        $spotify_query = 'album:' . $this->album_name .  ' artist:' . $this->artist_name;
+
+      }
+      else if ($type == 'track') {
+        $spotify_query = 'track:' . $this->track_name .  ' artist:' . $this->artist_name;
+      }
+    }
+
+
 
     $form['spotify_header'] = [
       '#type' => 'markup',
@@ -60,7 +96,7 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
       '#suffix' => '</h2>',
     ];
 
-    $form['spotify_table'] = $this->createSpotifyTable($query, $type);
+    $form['spotify_table'] = $this->createSpotifyTable($spotify_query, $type);
 
     $form['discogs_header'] = [
       '#type' => 'markup',
@@ -84,10 +120,16 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
 
   /**
    * Create Spotify Table.
+   *
+   * @param $query
+   * @param $type
+   * @return array
    */
   private function createSpotifyTable($query, $type)
   {
     $results = $this->spotifyLookupService->SpotifySearch($query, $type);
+
+
     $api_type = '';
     if ($type == 'artist') {
       $api_type = 'artists';
@@ -162,17 +204,32 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
   }
 
 
+  /**
+   * @param $query
+   * @param $type
+   * @return array
+   */
+
   private function createDiscogsTable($query, $type)
   {
     $api_type = '';
     if ($type == 'artist') {
       $api_type = 'artist';
+      $artist = $this->artist_name;
+      $results = $this->discogsLookupService->DiscogsArtistSearch($artist, $api_type);
     } elseif ($type == 'album') {
       $api_type = 'master';
+      $artist = $this->artist_name;
+      $album = $this->album_name;
+      $format = $type;
+      $results = $this->discogsLookupService->DiscogsAlbumSearch($artist, $album, $format, $api_type);
     } elseif ($type == 'track') {
-      $api_type = 'track';
+      $api_type = 'release';
+      $artist = $this->artist_name;
+      $track = $this->track_name;
+      $results = $this->discogsLookupService->DiscogsTrackSearch($artist, $track, $api_type);
+
     }
-    $results = $this->discogsLookupService->DiscogsSearch($query, $api_type);
 
 
     $header = [
@@ -240,8 +297,11 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
   {
     $spotify_id = $form_state->getValue('spotify_selection');
     $discogs_id = $form_state->getValue('discogs_selection');
+    $type = \Drupal::routeMatch()->getParameter('type');
 
-    if ($spotify_id && $discogs_id) {
+
+
+    if ($spotify_id && $discogs_id && $type == 'artist') {
         $form_state->setRedirect(
             'music_search.create_artist',
             [
@@ -249,7 +309,27 @@ class ArtistSelectionForm extends FormBase implements ContainerInjectionInterfac
                 'discogs_id' => $discogs_id,
             ]
         );
+    }
+    elseif ($spotify_id && $discogs_id && $type == 'album') {
+      $form_state->setRedirect(
+        'music_search.create_album',
+        [
+          'spotify_id' => $spotify_id,
+          'discogs_id' => $discogs_id,
+          'node_id' => $this->node_id,
+        ]
+      );
+    }
 
+    elseif ($spotify_id && $discogs_id && $type == 'track') {
+      $form_state->setRedirect(
+        'music_search.create_track',
+        [
+          'spotify_id' => $spotify_id,
+          'discogs_id' => $discogs_id,
+          'node_id' => $this->node_id,
+        ]
+      );
     }
     else {
         \Drupal::messenger()->addError($this->t('You need to add both discogs and spotify item to continue'));

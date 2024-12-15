@@ -4,10 +4,10 @@ namespace Drupal\music_search\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\discogs_lookup\Service\DiscogsLookupService;
+use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Drupal\spotify_lookup\Service\SpotifyLookupService;
-use Drupal\spotify_lookup\SpotifyData;
 
 
 /**
@@ -33,8 +33,6 @@ class MusicSearchController extends ControllerBase {
      *  Discogs Search Service
      */
 
-
-
     public function __construct(SpotifyLookupService $spotifyLookupService, DiscogsLookupService $discogsLookupService) {
         $this->spotifyLookupService = $spotifyLookupService;
         $this->discogsLookupService = $discogsLookupService;
@@ -49,7 +47,6 @@ class MusicSearchController extends ControllerBase {
 
 
     public function music_search_page() {
-        // Example content for the overview page.
         $build = [
             'description' => [
                 '#markup' => '<p>' . $this->t('Search for music from Spotify, Discogs, and other sources.') . '</p>',
@@ -57,7 +54,6 @@ class MusicSearchController extends ControllerBase {
             'links' => [
                 '#theme' => 'item_list',
                 '#items' => [
-                    $this->t('<a href="/admin/music-search/create-album">Create an Album</a>'),
                     $this->t('<a href="/admin/music-search/search">Search for Music</a>'),
                 ],
             ],
@@ -66,9 +62,39 @@ class MusicSearchController extends ControllerBase {
         return $build;
     }
 
+
+
+    public function listamadur_autocomplete() {
+        $suggestions = [];
+        $query = \Drupal::request()->query->get('q');
+
+        if ($query) {
+            $query_result = \Drupal::entityQuery('node')
+                ->condition('type', 'listamadur')
+                ->condition('title', '%' . $query . '%', 'LIKE')
+                ->accessCheck(TRUE)
+                ->range(0, 10)
+                ->execute();
+
+            if (!empty($query_result)) {
+                $nodes = Node::loadMultiple($query_result);
+                foreach ($nodes as $node) {
+                    $suggestions[] = [
+                        'value' => $node->label() . ' (' . $node->id() . ')',
+                        'label' => $node->label() . ' (' . $node->id() . ')',
+                    ];
+                }
+            }
+        }
+
+
+        return new JsonResponse($suggestions);
+    }
     public function auto_complete() {
         $query = \Drupal::request()->query->get('q');
         $type = \Drupal::request()->query->get('type');
+
+
         $results = $this->spotifyLookupService->SpotifySearch($query, $type);
         $suggestions = [];
 

@@ -43,13 +43,16 @@ function music_search_theme() {
 
 /**
  * Implements hook_install()
+ *
+ * Installs content types if they dont exist,
+ * Makes this module movable to other projects
  */
 
 function music_search_install() {
   if (!NodeType::load('artist')) {
     NodeType::create([
-      'type' => 'artist',
-      'name' => 'Artist',
+      'type' => 'listamadur',
+      'name' => 'Listamaður',
     ])->save();
   }
   if (!FieldStorageConfig::loadByName('node', 'field_artist_name')) {

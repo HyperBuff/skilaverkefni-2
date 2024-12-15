@@ -4,8 +4,10 @@ namespace Drupal\music_search\Form;
 
 use Drupal\Core\Form\FormBase;
 use Drupal\Core\Form\FormStateInterface;
+use Drupal\node\Entity\Node;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\spotify_lookup\Service\SpotifyLookupService;
+use Drupal\music_search\MusicSearchHelper;
 
 /**
  * Music Search Form
@@ -19,6 +21,7 @@ class MusicSearchForm extends FormBase {
    */
 
   protected $spotifyLookupService;
+  protected $helper;
 
 
   /**
@@ -29,6 +32,8 @@ class MusicSearchForm extends FormBase {
 
   public function __construct(SpotifyLookupService $spotifyLookupService) {
     $this->spotifyLookupService = $spotifyLookupService;
+    $this->helper = new MusicSearchHelper();
+
   }
 
   /**
@@ -53,13 +58,39 @@ class MusicSearchForm extends FormBase {
    */
 
   public function buildForm(array $form, FormStateInterface $form_state) {
+    $type = \Drupal::routeMatch()->getParameter('type');
+
+
+    if ($type == 'track' || $type == 'album') {
+      $form['artist_query'] = [
+        '#type' => 'entity_autocomplete',
+        '#title' => $this->t('Artist search'),
+        '#target_type' => 'node',
+        '#selection_handler' => 'default',
+        '#selection_settings' => [
+          'target_bundles' => ['listamadur'],
+        ],
+        '#tags' => FALSE,
+        '#required' => FALSE,
+        '#placeholder' => $this->t('Search artist here...'),
+
+      ];
+    }
+
+
     $form['query'] = [
       '#type' => 'search',
-      '#title' => $this->t('Search'),
+      '#title' => $this->t('Search for ' . $type),
       '#autocomplete_route_name' => 'music_search.auto_complete_search',
-      '#size' => 30,
+      '#autocomplete_route_parameters' => [
+        'type' => $type,
+      ],
+      '#size' => 5,
       '#placeholder' => $this->t('Search here...'),
     ];
+
+
+
 
     $form['submit'] = [
       '#type' => 'submit',
@@ -70,13 +101,30 @@ class MusicSearchForm extends FormBase {
   }
 
   public function submitForm(array &$form, FormStateInterface $form_state) {
+    $type = \Drupal::routeMatch()->getParameter('type');
     $query = $form_state->getValue('query');
 
-    // Redirect to results page with query and type as parameters.
+    if ($type == 'album' || $type == 'track') {
+      $node_id = $form_state->getValue('artist_query');
+      \Drupal::messenger()->addMessage("node_id: " . $node_id);
+
+      $artist_name = Node::load($node_id)->label();
+      if ($node_id) {
+        if ($type == 'album') {
+          $query =  'album_name=' .$query . '?artist_name=' . $artist_name . '?node_id=' . $node_id;
+        }
+        if ($type == 'track') {
+          $query =  'track_name=' .$query . '?artist_name=' . $artist_name . '?node_id=' . $node_id;
+        }
+
+      }
+    }
+
     $form_state->setRedirect(
       'music_search.results',
       [
         'query' => $query,
+        'type' => $type,
       ]
     );
   }

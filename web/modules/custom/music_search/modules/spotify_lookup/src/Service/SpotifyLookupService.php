@@ -36,6 +36,7 @@ class SpotifyLookupService {
     }
 
   public function SpotifySearch($query, $type) {
+
     try {
       $accessToken = $this->getAccessToken();
       $response = $this->client->get('search', [
@@ -59,6 +60,36 @@ class SpotifyLookupService {
     try {
       $accessToken = $this->getAccessToken();
       $response = $this->client->get('artists/' . $id, [
+        'headers' => [
+          'Authorization' => 'Bearer ' . $accessToken,
+        ],
+      ]);
+      return json_decode($response->getBody(), true);
+    } catch (\Exception $e) {
+      \Drupal::logger('spotify_lookup')->error('Spotify API error: @message', ['@message' => $e->getMessage()]);
+      return [];
+    }
+  }
+
+  public function getAlbumById($id) {
+    try {
+      $accessToken = $this->getAccessToken();
+      $response = $this->client->get('albums/' . $id, [
+        'headers' => [
+          'Authorization' => 'Bearer ' . $accessToken,
+        ],
+      ]);
+      return json_decode($response->getBody(), true);
+    } catch (\Exception $e) {
+      \Drupal::logger('spotify_lookup')->error('Spotify API error: @message', ['@message' => $e->getMessage()]);
+      return [];
+    }
+  }
+
+  public function getTrackById($id) {
+    try {
+      $accessToken = $this->getAccessToken();
+      $response = $this->client->get('tracks/' . $id, [
         'headers' => [
           'Authorization' => 'Bearer ' . $accessToken,
         ],

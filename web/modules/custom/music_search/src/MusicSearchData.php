@@ -71,25 +71,6 @@ class MusicArtistData extends MusicSearchData {
     $this->websites = [];
   }
 
-  /**
-   * @return array
-   */
-  public function get_names(): array {
-    $names = [];
-
-    if (!empty($this->name)) {
-      $names[] = $this->name;
-    }
-
-    if (!empty($discogs_data->namevariations)) {
-      foreach ($discogs_data->namevariations as $variation) {
-        $names[] = $variation;
-      }
-    }
-
-    return array_unique($names);
-  }
-
 
 
 

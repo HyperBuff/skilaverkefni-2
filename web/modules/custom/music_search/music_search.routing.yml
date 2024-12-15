@@ -5,22 +5,19 @@ music_search.overview:
     _controller: '\Drupal\music_search\Controller\MusicSearchController::music_search_page'
   requirements:
     _permission: 'access content'
+  options:
+    _admin_route: true
+
 
 music_search.search:
-  path: '/admin/music-search/search'
+  path: '/admin/music-search/search/{type}'
   defaults:
     _title: "Search"
     _form: '\Drupal\music_search\Form\MusicSearchForm'
   requirements:
     _permission: 'access content'
-
-music_search.search_artist:
-  path: '/admin/music-search/search_artist'
-  defaults:
-    _title: "Search artist"
-    _form: '\Drupal\music_search\Form\MusicSearchArtistForm'
-  requirements:
-    _permission: 'access content'
+  options:
+    _admin_route: true
 
 music_search.create_artist:
   path: '/admin/music-search/create_artist/{spotify_id}/{discogs_id}'
@@ -29,31 +26,40 @@ music_search.create_artist:
     _form: '\Drupal\music_search\Form\MusicSearchCreateArtistForm'
   requirements:
     _permission: 'access content'
+  options:
+    _admin_route: true
+
 
 music_search.create_track:
-  path: '/admin/music-search/create_track'
+  path: '/admin/music-search/create_track/{spotify_id}/{discogs_id}/{node_id}'
   defaults:
     _title: "Create track"
-    _form: '\Drupal\music_search\Form\MusicSearchForm'
+    _form: '\Drupal\music_search\Form\MusicSearchCreateTrackForm'
   requirements:
     _permission: 'access content'
+  options:
+    _admin_route: true
 
 
 music_search.create_album:
-  path: '/admin/music-search/create_album'
+  path: '/admin/music-search/create_album/{spotify_id}/{discogs_id}/{node_id}'
   defaults:
     _title: "Create Album"
-    _form: '\Drupal\music_search\Form\MusicSearchForm'
+    _form: '\Drupal\music_search\Form\MusicSearchCreateAlbumForm'
   requirements:
     _permission: 'access content'
+  options:
+    _admin_route: true
 
 music_search.results:
   path: '/admin/music-search/results/{type}/{query}'
   defaults:
-    _form: '\Drupal\music_search\Form\ArtistSelectionForm'
+    _form: '\Drupal\music_search\Form\MusicSearchSelectionForm'
     _title: "Results"
   requirements:
     _permission: 'access content'
+  options:
+    _admin_route: true
 
 
 music_search.auto_complete_search:
@@ -62,4 +68,14 @@ music_search.auto_complete_search:
     _controller: '\Drupal\music_search\Controller\MusicSearchController::auto_complete'
   requirements:
     _permission: 'access content'
+  options:
+    _admin_route: true
 
+music_search.listamadur_autocomplete:
+  path: '/admin/music-search/listamadur-autocomplete'
+  defaults:
+    _controller: '\Drupal\music_search\Controller\MusicSearchController::listamadur_autocomplete'
+  requirements:
+    _permission: 'access content'
+  options:
+    _admin_route: true

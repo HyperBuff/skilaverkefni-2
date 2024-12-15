@@ -10,19 +10,25 @@ music_search.create_album:
   title: "Create Album"
   description: "Create an album from Spotify and Discogs."
   parent: music_search.overview
-  route_name: music_search.create_album
+  route_name: music_search.search
   weight: 0
+  route_parameters:
+    type: 'album'
 
 music_search.create_artist:
   title: "Create Artist"
   description: "Create an artist from Spotify and Discogs."
   parent: music_search.overview
-  route_name: music_search.search_artist
+  route_name: music_search.search
   weight: 0
+  route_parameters:
+    type: 'artist'
 
 music_search.create_track:
   title: "Create Track"
   description: "Create an track from Spotify and Discogs."
   parent: music_search.overview
-  route_name: music_search.create_track
+  route_name: music_search.search
   weight: 0
+  route_parameters:
+    type: 'track'

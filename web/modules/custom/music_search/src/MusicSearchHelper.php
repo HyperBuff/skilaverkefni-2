@@ -7,8 +7,61 @@ namespace Drupal\music_search;
 
 use Drupal\file\Entity\File;
 use Drupal\media\Entity\Media;
+use Drupal\node\Entity\Node;
 
 class MusicSearchHelper {
+
+
+  public function remove_id_from_title($string) {
+    // Use regex to remove " (number)" from the end of the string.
+    return preg_replace('/\s*\(\d+\)$/', '', $string);
+  }
+
+  /**
+   * extract node id from string
+   *
+   * @param string $query
+   *
+   * @return string | bool
+   *
+   */
+
+  public function extract_node_id($query)
+  {
+    if (preg_match('/\((\d+)\)$/', $query, $matches)) {
+      $id = $matches[1];
+      return $id;
+
+    } else {
+      return FALSE;
+    }
+  }
+
+
+  /**
+   * get spotify and discogs ids
+   *
+   * @param string $query
+   *
+   * @return array
+   *
+   */
+  public function get_music_service_ids($query) {
+    $node_id = $this->extract_node_id($query);
+    $ids = [];
+
+    if ($node_id !== FALSE) {
+      $node = Node::load($node_id);
+      if ($node) {
+        $spotify_id = $node->get('field_spotify_id')->value;
+        $discogs_id = $node->get('field_discogs_id')->value;
+        array_push($ids, $spotify_id, $discogs_id);
+      }
+    }
+
+    return $ids;
+
+  }
 
 
   /**

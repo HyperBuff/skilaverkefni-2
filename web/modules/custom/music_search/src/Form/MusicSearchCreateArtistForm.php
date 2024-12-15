@@ -96,8 +96,8 @@ class MusicSearchCreateArtistForm extends FormBase {
     foreach ($artist->get_images() as $key => $image) {
       $form['images_table'][$key]['select'] = [
         '#type' => 'radio',
-        '#name' => 'images_table[select]', // Properly namespaced for form submission.
-        '#return_value' => $image->url,    // Set the value of this radio button.
+        '#name' => 'images_table[select]',
+        '#return_value' => $image->url,
       ];
 
       $form['images_table'][$key]['image'] = [
@@ -157,6 +157,8 @@ class MusicSearchCreateArtistForm extends FormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state)
   {
+    $spotify_id = \Drupal::routeMatch()->getParameter('spotify_id');
+    $discogs_id = \Drupal::routeMatch()->getParameter('discogs_id');
     $values = $form_state->getValues();
 
     $title = $values['title'];
@@ -177,18 +179,17 @@ class MusicSearchCreateArtistForm extends FormBase {
 
 
 
-
-
-    // Create the artist node.
     $node = Node::create([
       'type' => 'listamadur',
-      'title' => $title, // Title of the node.
+      'title' => $title,
+      'field_spotify_id' => $spotify_id,
+      'field_discogs_id' => $discogs_id,
       'field_lysing' => [
         'value' => $description,
         'format' => $description_format,
       ],
-      'field_stofndagur' => $founding_date, // Assuming this is a date field.
-      'field_danardagur' => $death_date,    // Assuming this is a date field.
+      'field_stofndagur' => $founding_date,
+      'field_danardagur' => $death_date,
       'field_myndir' => $media ? [['target_id' => $media->id(), 'alt' => $title]] : [],
       'field_hlekkur' => [
         'uri' => $values['field_hlekkur'] ?? '',
@@ -197,6 +198,16 @@ class MusicSearchCreateArtistForm extends FormBase {
     ]);
 
     $node->save();
+
+    $node_id = $node->id();
+
+
+    $form_state->setRedirect(
+      'entity.node.canonical', // Route to the node's canonical page.
+      [
+        'node' => $node_id, // Pass the node ID as a parameter.
+      ]
+    );
 
     $this->messenger()->addMessage($this->t('The artist %name has been created.', ['%name' => $values['title']]));
   }
