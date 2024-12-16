@@ -14,7 +14,7 @@ Fyrsta skref er að fara í extend flipann þar sem allar módúlur eru staðset
 Spotify Lookup:
 - Spotify API Client ID
 - Spotify API Client Secret
-- 
+
 Discogs Lookup:
 - Discogs API token 
 
