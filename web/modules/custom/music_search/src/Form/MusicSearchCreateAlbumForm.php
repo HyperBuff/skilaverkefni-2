@@ -60,6 +60,10 @@ class MusicSearchCreateAlbumForm extends FormBase {
     $album = new MusicSearchAlbumData($spotify_results, $discogs_results);
 
 
+    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [
+      '@result' => json_encode($album->discogs_data, JSON_PRETTY_PRINT),
+    ]));
+
 
 //    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [
 //      '@result' => json_encode($artist->discogs_data, JSON_PRETTY_PRINT),
@@ -156,7 +160,7 @@ class MusicSearchCreateAlbumForm extends FormBase {
       '#selection_settings' => [
         'target_bundles' => ['utgefandi'],
       ],
-      '#tags' => TRUE, // Allow multiple values.
+      '#tags' => TRUE,
       '#required' => FALSE,
     ];
 
@@ -165,6 +169,18 @@ class MusicSearchCreateAlbumForm extends FormBase {
       '#type' => 'checkbox',
       '#title' => $this->t('Highlighted'),
     ];
+
+    $form['field_genre'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Genres'),
+      '#options' => [],
+    ];
+    $genres = $album->get_genres();
+    if (!empty($genres)) {
+      foreach ($genres as $genre) {
+        $form['field_genre']['#options'][$genre->name] = $genre->name;
+      }
+    }
 
 
     $form['actions']['submit'] = [
@@ -185,7 +201,6 @@ class MusicSearchCreateAlbumForm extends FormBase {
     $discogs_id = \Drupal::routeMatch()->getParameter('discogs_id');
     $values = $form_state->getValues();
 
-    // Retrieve form values
     $title = $values['title'];
     $description = $values['field_lysing']['value'] ?? '';
     $description_format = $values['field_lysing']['format'] ?? 'full_html';
@@ -193,7 +208,6 @@ class MusicSearchCreateAlbumForm extends FormBase {
     $highlighted = $values['field_highlighted'] ?? FALSE;
     $selected_image_url = $values['images_table']['select'] ?? NULL;
 
-    // Handle media creation for field_mynd (Image)
     $media = NULL;
     if (!empty($selected_image_url)) {
       $media = $this->helper->create_media_from_external_image($selected_image_url, $title);
@@ -207,7 +221,6 @@ class MusicSearchCreateAlbumForm extends FormBase {
       }
     }
 
-// Process field_utgefandi (Labels)
     $field_utgefandi_values = $values['field_utgefandi'] ?? [];
     $utgefandi_references = [];
     foreach ($field_utgefandi_values as $item) {
@@ -216,9 +229,12 @@ class MusicSearchCreateAlbumForm extends FormBase {
       }
     }
 
-    // Create the album node
+    $selected_genres = $values['field_genre'] ?? [];
+    $genre_references = $this->helper->create_or_find_genres($selected_genres);
+
+
     $node = Node::create([
-      'type' => 'plata', // Content type machine name
+      'type' => 'plata',
       'title' => $title,
       'field_spotify_id' => $spotify_id,
       'field_discogs_id' => $discogs_id,
@@ -231,12 +247,11 @@ class MusicSearchCreateAlbumForm extends FormBase {
       'field_highlighted' => $highlighted,
       'field_listamadur' => $listamadur_references,
       'field_utgefandi' => $utgefandi_references,
+      'field_genre' => $genre_references,
     ]);
 
-    // Save the node
     $node->save();
 
-    // Redirect to the newly created node's page
     $form_state->setRedirect(
       'entity.node.canonical',
       ['node' => $node->id()]

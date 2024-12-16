@@ -126,8 +126,6 @@ class MusicSearchCreateArtistForm extends FormBase {
       ],
     ];
 
-
-
     $form['field_hlekkur'] = [
       '#type' => 'radios',
       '#title' => $this->t('Artist websites'),
@@ -141,6 +139,17 @@ class MusicSearchCreateArtistForm extends FormBase {
       }
     }
 
+    $form['field_genre'] = [
+        '#type' => 'checkboxes',
+        '#title' => $this->t('Genres'),
+        '#options' => [],
+    ];
+      $genres = $artist->get_genres();
+      if (!empty($genres)) {
+          foreach ($genres as $genre) {
+              $form['field_genre']['#options'][$genre->name] = $genre->name;
+          }
+      }
 
 
     $form['actions']['submit'] = [
@@ -178,6 +187,10 @@ class MusicSearchCreateArtistForm extends FormBase {
     }
 
 
+    $selected_genres = $values['field_genre'] ?? [];
+    $genre_references = $this->helper->create_or_find_genres($selected_genres);
+
+
 
     $node = Node::create([
       'type' => 'listamadur',
@@ -191,6 +204,7 @@ class MusicSearchCreateArtistForm extends FormBase {
       'field_stofndagur' => $founding_date,
       'field_danardagur' => $death_date,
       'field_myndir' => $media ? [['target_id' => $media->id(), 'alt' => $title]] : [],
+        'field_genre' => $genre_references,
       'field_hlekkur' => [
         'uri' => $values['field_hlekkur'] ?? '',
         'title' => $title,

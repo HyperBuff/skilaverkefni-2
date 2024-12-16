@@ -54,7 +54,9 @@ class MusicSearchController extends ControllerBase {
             'links' => [
                 '#theme' => 'item_list',
                 '#items' => [
-                    $this->t('<a href="/admin/music-search/search">Search for Music</a>'),
+                    $this->t('<a href="/admin/music-search/search/artist">Create Artist</a>'),
+                    $this->t('<a href="/admin/music-search/search/album">Create Album</a>'),
+                    $this->t('<a href="/admin/music-search/search/track">Create Track</a>'),
                 ],
             ],
         ];
@@ -63,33 +65,6 @@ class MusicSearchController extends ControllerBase {
     }
 
 
-
-    public function listamadur_autocomplete() {
-        $suggestions = [];
-        $query = \Drupal::request()->query->get('q');
-
-        if ($query) {
-            $query_result = \Drupal::entityQuery('node')
-                ->condition('type', 'listamadur')
-                ->condition('title', '%' . $query . '%', 'LIKE')
-                ->accessCheck(TRUE)
-                ->range(0, 10)
-                ->execute();
-
-            if (!empty($query_result)) {
-                $nodes = Node::loadMultiple($query_result);
-                foreach ($nodes as $node) {
-                    $suggestions[] = [
-                        'value' => $node->label() . ' (' . $node->id() . ')',
-                        'label' => $node->label() . ' (' . $node->id() . ')',
-                    ];
-                }
-            }
-        }
-
-
-        return new JsonResponse($suggestions);
-    }
     public function auto_complete() {
         $query = \Drupal::request()->query->get('q');
         $type = \Drupal::request()->query->get('type');

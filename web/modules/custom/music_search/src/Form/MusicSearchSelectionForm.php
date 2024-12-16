@@ -60,32 +60,31 @@ class MusicSearchSelectionForm extends FormBase implements ContainerInjectionInt
   {
     $type = \Drupal::routeMatch()->getParameter('type');
     $query = \Drupal::routeMatch()->getParameter('query');
+
     $spotify_query = $query;
 
-    if ($type == 'album' || $type == 'track') {
-      $parts = explode('?', $query);
-      $params = [];
-      foreach ($parts as $part) {
-        parse_str($part, $result);
-        $params = array_merge($params, $result);
-      }
-
-      $this->artist_name = $params['artist_name'] ?? '';
-      $this->album_name = $params['album_name'] ?? '';
-      $this->track_name = $params['track_name'] ?? '';
-      $this->node_id = $params['node_id'] ?? '';
-
-      \Drupal::messenger()->addMessage('track_name'. $this->track_name);
-
-
-      if ($type == 'album') {
-        $spotify_query = 'album:' . $this->album_name .  ' artist:' . $this->artist_name;
-
-      }
-      else if ($type == 'track') {
-        $spotify_query = 'track:' . $this->track_name .  ' artist:' . $this->artist_name;
-      }
+    $parts = explode('?', $query);
+    $params = [];
+    foreach ($parts as $part) {
+      parse_str($part, $result);
+      $params = array_merge($params, $result);
     }
+
+    $this->artist_name = $params['artist_name'] ?? '';
+    $this->album_name = $params['album_name'] ?? '';
+    $this->track_name = $params['track_name'] ?? '';
+    $this->node_id = $params['node_id'] ?? '';
+
+
+
+    if ($type == 'album') {
+      $spotify_query = 'album:' . $this->album_name .  ' artist:' . $this->artist_name;
+    }
+    else if ($type == 'track') {
+      $spotify_query = 'track:' . $this->track_name .  ' artist:' . $this->artist_name;
+    }
+
+
 
 
 
@@ -215,7 +214,7 @@ class MusicSearchSelectionForm extends FormBase implements ContainerInjectionInt
     $api_type = '';
     if ($type == 'artist') {
       $api_type = 'artist';
-      $artist = $this->artist_name;
+      $artist = $query;
       $results = $this->discogsLookupService->DiscogsArtistSearch($artist, $api_type);
     } elseif ($type == 'album') {
       $api_type = 'master';

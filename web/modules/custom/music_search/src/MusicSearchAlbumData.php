@@ -27,7 +27,8 @@ class MusicSearchAlbumData extends MusicSearchData {
   public function __construct(object|array $spotify_results, object|array $discogs_results) {
     parent::__construct($spotify_results, $discogs_results);
     $this->year = date($this->discogs_data->released);
-
+    $this->images = [];
+    $this->genres = [];
   }
 
 
@@ -39,7 +40,6 @@ class MusicSearchAlbumData extends MusicSearchData {
    *   Array of objects, each representing an image with URL and type.
    */
   public function get_images(): array {
-    $this->images = [];
 
     if (!empty($this->spotify_data->images)) {
       $images[] = (object) [
@@ -62,6 +62,27 @@ class MusicSearchAlbumData extends MusicSearchData {
   }
 
   public function get_genres() {
+    $genres = [];
+
+    if (!empty($this->spotify_data->genres)) {
+      foreach ($this->spotify_data->genres as $genre) {
+        $genres[] = (object) [
+          'name' => $genre,
+          'type' => 'spotify'
+        ];
+      }
+    }
+
+    if (!empty($this->discogs_data->genres)) {
+      foreach ($this->discogs_data->genres as $genre) {
+        $genres[] = (object) [
+          'name' => $genre,
+          'type' => 'discogs',
+        ];
+      }
+    }
+
+    return array_values($genres);
 
   }
 

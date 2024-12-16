@@ -9,6 +9,8 @@ namespace Drupal\music_search;
  */
 
 class MusicSearchTrackData extends MusicSearchData {
+  public array $genres;
+
 
   /**
    * Music Artist constructor.
@@ -20,11 +22,9 @@ class MusicSearchTrackData extends MusicSearchData {
    */
   public function __construct(object|array $spotify_results, object|array $discogs_results) {
     parent::__construct($spotify_results, $discogs_results);
+    $this->genres = [];
 
   }
-
-
-
 
   public function getLinks(): array {
     $links = [];
@@ -50,6 +50,32 @@ class MusicSearchTrackData extends MusicSearchData {
     $minutes = floor($seconds / 60);
     $remaining_seconds = $seconds % 60;
     return sprintf('%02d:%02d', $minutes, $remaining_seconds);
+  }
+
+
+  public function get_genres() {
+    $genres = [];
+
+    if (!empty($this->spotify_data->genres)) {
+      foreach ($this->spotify_data->genres as $genre) {
+        $genres[] = (object) [
+          'name' => $genre,
+          'type' => 'spotify'
+        ];
+      }
+    }
+
+    if (!empty($this->discogs_data->genre)) {
+      foreach ($this->discogs_data->genres as $genre) {
+        $genres[] = (object) [
+          'name' => $genre,
+          'type' => 'discogs',
+        ];
+      }
+    }
+
+    return array_values($genres);
+
   }
 
 

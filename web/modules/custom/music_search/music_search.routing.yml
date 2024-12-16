@@ -70,12 +70,3 @@ music_search.auto_complete_search:
     _permission: 'access content'
   options:
     _admin_route: true
-
-music_search.listamadur_autocomplete:
-  path: '/admin/music-search/listamadur-autocomplete'
-  defaults:
-    _controller: '\Drupal\music_search\Controller\MusicSearchController::listamadur_autocomplete'
-  requirements:
-    _permission: 'access content'
-  options:
-    _admin_route: true

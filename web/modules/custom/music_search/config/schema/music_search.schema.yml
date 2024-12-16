@@ -1,7 +1,0 @@
-music_search.settings:
-  type: config_object
-  label: 'Music Search Settings'
-  mapping:
-    spotify_api_key:
-      type: string
-      label: 'Spotify API key'

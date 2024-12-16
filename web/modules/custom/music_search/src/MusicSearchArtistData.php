@@ -92,6 +92,27 @@ class MusicSearchArtistData extends MusicSearchData {
   }
 
   public function get_genres() {
+    $genres = [];
+
+    if (!empty($this->spotify_data->genres)) {
+      foreach ($this->spotify_data->genres as $genre) {
+        $genres[] = (object) [
+          'name' => $genre,
+          'type' => 'spotify'
+        ];
+      }
+    }
+
+    if (!empty($this->discogs_data->genre)) {
+      foreach ($this->discogs_data->genres as $genre) {
+        $genres[] = (object) [
+          'name' => $genre,
+          'type' => 'discogs',
+        ];
+      }
+    }
+
+    return array_values($genres);
 
   }
 

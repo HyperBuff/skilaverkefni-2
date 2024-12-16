@@ -87,7 +87,10 @@ class MusicSearchCreateTrackForm extends FormBase {
       $form['links_table'][$key]['select'] = [
         '#type' => 'radio',
         '#name' => 'links_table[select]',
-        '#return_value' => $link->url,
+        '#return_value' => json_encode([
+          'url' => $link->url,
+          'duration' => $link->duration,
+        ]),
       ];
 
       $form['links_table'][$key]['title'] = [
@@ -103,6 +106,18 @@ class MusicSearchCreateTrackForm extends FormBase {
       ];
     }
 
+
+    $form['field_genre'] = [
+      '#type' => 'checkboxes',
+      '#title' => $this->t('Genres'),
+      '#options' => [],
+    ];
+    $genres = $track->get_genres();
+    if (!empty($genres)) {
+      foreach ($genres as $genre) {
+        $form['field_genre']['#options'][$genre->name] = $genre->name;
+      }
+    }
 
 
     $form['actions']['submit'] = [
@@ -127,58 +142,49 @@ class MusicSearchCreateTrackForm extends FormBase {
     $values = $form_state->getValues();
 
     $title = $values['title'];
-    $selected_link_url = $values['links_table']['select'] ?? NULL;
 
-    $youtube_media = NULL;
-    if (!empty($selected_link_url)) {
-      $youtube_media = $this->createOrLoadMedia($selected_link_url, $title);
+
+    $selected_value = $values['links_table']['select'] ?? NULL;
+    if ($selected_value) {
+      $decoded_value = json_decode($selected_value, TRUE);
+      $url = $decoded_value['url'] ?? '';
+      $duration = $decoded_value['duration'] ?? '';
+
+      $youtube_media = NULL;
+      if (!empty($url)) {
+        $youtube_media = $this->helper->create_or_load_media($url, $title);
+      }
+
+      $selected_genres = $values['field_genre'] ?? [];
+      $genre_references = $this->helper->create_or_find_genres($selected_genres);
+
+
+      $node = Node::create([
+        'type' => 'lag',
+        'title' => $title,
+        'field_lengd' => $duration,
+        'field_spotify_id' => $spotify_id,
+        'field_discogs_id' => $discogs_id,
+        'field_youtube_link' => $youtube_media ? [['target_id' => $youtube_media->id()]] : [],
+        'field_genres' => $genre_references,
+      ]);
+
+      $node->save();
+
+      $form_state->setRedirect(
+        'entity.node.canonical',
+        ['node' => $node->id()]
+      );
+
+
     }
 
-    $length = $values['field_lengd'] ?? '';
-    $spotify_id = $values['field_spotify_id'] ?? '';
-    $discogs_id = $values['field_discogs_id'] ?? '';
 
-    $node = Node::create([
-      'type' => 'lag',
-      'title' => $title,
-      'field_lengd' => $length,
-      'field_spotify_id' => $spotify_id,
-      'field_discogs_id' => $discogs_id,
-      'field_youtube_link' => $youtube_media ? [['target_id' => $youtube_media->id()]] : [],
-    ]);
-
-    $node->save();
-
-    $form_state->setRedirect(
-      'entity.node.canonical',
-      ['node' => $node->id()]
-    );
 
     $this->messenger()->addMessage($this->t('The track %name has been created.', ['%name' => $title]));
   }
 
-  /**
-   * Helper function to create or load a media entity for a YouTube link.
-   */
-  protected function createOrLoadMedia(string $url, string $title) {
-    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
-    $existing_media = $media_storage->loadByProperties(['field_media_oembed_video' => $url]);
 
-    if (!empty($existing_media)) {
-      return reset($existing_media);
-    }
-
-    $media = $media_storage->create([
-      'bundle' => 'remote_video',
-      'name' => $title,
-      'uid' => \Drupal::currentUser()->id(),
-      'status' => 1,
-      'field_media_oembed_video' => $url,
-    ]);
-    $media->save();
-
-    return $media;
-  }
 
 
 

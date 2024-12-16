@@ -65,6 +65,67 @@ class MusicSearchHelper {
 
 
   /**
+   * @param string $url
+   * @param string $title
+   * @return \Drupal\Core\Entity\EntityInterface|false|mixed
+   * @throws \Drupal\Component\Plugin\Exception\InvalidPluginDefinitionException
+   * @throws \Drupal\Component\Plugin\Exception\PluginNotFoundException
+   * @throws \Drupal\Core\Entity\EntityStorageException
+   */
+  public function create_or_load_media(string $url, string $title) {
+    $media_storage = \Drupal::entityTypeManager()->getStorage('media');
+    $existing_media = $media_storage->loadByProperties(['field_media_oembed_video' => $url]);
+
+    if (!empty($existing_media)) {
+      return reset($existing_media);
+    }
+
+    $media = $media_storage->create([
+      'bundle' => 'remote_video',
+      'name' => $title,
+      'uid' => \Drupal::currentUser()->id(),
+      'status' => 1,
+      'field_media_oembed_video' => $url,
+    ]);
+    $media->save();
+
+    return $media;
+  }
+
+  public function create_or_find_genres(array $selected_genres) {
+    $genre_references = [];
+
+    if (!empty($selected_genres)) {
+      foreach ($selected_genres as $genre_name) {
+        if ($genre_name) {
+          $term_storage = \Drupal::entityTypeManager()->getStorage('taxonomy_term');
+          $existing_terms = $term_storage->loadByProperties([
+            'name' => $genre_name,
+            'vid' => 'tegund',
+          ]);
+
+          if (!empty($existing_terms)) {
+            $term = reset($existing_terms);
+          } else {
+            $term = $term_storage->create([
+              'name' => $genre_name,
+              'vid' => 'tegund',
+            ]);
+            $term->save();
+          }
+
+          $genre_references[] = ['target_id' => $term->id()];
+
+        }
+      }
+    }
+
+    return $genre_references;
+
+  }
+
+
+  /**
    * Save an external image as a media entity.
    *
    * @param string $image_url

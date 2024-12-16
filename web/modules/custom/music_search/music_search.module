@@ -49,23 +49,24 @@ function music_search_theme() {
  */
 
 function music_search_install() {
-  if (!NodeType::load('artist')) {
+  if (!NodeType::load('listamadur')) {
     NodeType::create([
       'type' => 'listamadur',
       'name' => 'Listamaður',
     ])->save();
   }
-  if (!FieldStorageConfig::loadByName('node', 'field_artist_name')) {
-  \Drupal\field\Entity\FieldStorageConfig::create([
-    'field_name' => 'field_artist_name',
-    'entity_type' => 'node',
-    'type' => 'string',
-  ])->save();
+
+  if (!NodeType::load('plata')) {
+    NodeType::create([
+      'type' => 'plata',
+      'name' => 'Plata',
+    ])->save();
   }
-  \Drupal\field\Entity\FieldConfig::create([
-    'field_name' => 'field_artist_name',
-    'entity_type' => 'node',
-    'bundle' => 'artist',
-    'label' => 'Artist Name',
-  ])->save();
+
+  if (!NodeType::load('lag')) {
+    NodeType::create([
+      'type' => 'lag',
+      'name' => 'Lag',
+    ])->save();
+  }
 }

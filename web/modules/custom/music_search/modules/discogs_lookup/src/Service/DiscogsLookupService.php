@@ -39,12 +39,12 @@ class DiscogsLookupService {
     }
   }
 
-  public function DiscogsArtistSearch($query, $type) {
+  public function DiscogsArtistSearch($artist, $type) {
     $access_token = $this->getAccessToken();
     try {
       $response = $this->client->get('database/search', [
         'query' => [
-          'artist' => $query,
+          'q' => $artist,
           'type' => $type,
           'token' => $access_token,
           'per_page' => 5,
