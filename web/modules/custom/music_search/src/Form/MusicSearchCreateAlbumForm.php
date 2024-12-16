@@ -60,9 +60,9 @@ class MusicSearchCreateAlbumForm extends FormBase {
     $album = new MusicSearchAlbumData($spotify_results, $discogs_results);
 
 
-    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [
-      '@result' => json_encode($album->discogs_data, JSON_PRETTY_PRINT),
-    ]));
+//    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [
+//      '@result' => json_encode($album->discogs_data, JSON_PRETTY_PRINT),
+//    ]));
 
 
 //    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [

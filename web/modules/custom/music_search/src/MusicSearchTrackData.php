@@ -22,7 +22,6 @@ class MusicSearchTrackData extends MusicSearchData {
    */
   public function __construct(object|array $spotify_results, object|array $discogs_results) {
     parent::__construct($spotify_results, $discogs_results);
-    $this->genres = [];
 
   }
 
@@ -65,7 +64,7 @@ class MusicSearchTrackData extends MusicSearchData {
       }
     }
 
-    if (!empty($this->discogs_data->genre)) {
+    if (!empty($this->discogs_data->genres)) {
       foreach ($this->discogs_data->genres as $genre) {
         $genres[] = (object) [
           'name' => $genre,

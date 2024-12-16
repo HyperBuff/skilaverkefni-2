@@ -104,6 +104,7 @@ class MusicSearchHelper {
             'vid' => 'tegund',
           ]);
 
+
           if (!empty($existing_terms)) {
             $term = reset($existing_terms);
           } else {

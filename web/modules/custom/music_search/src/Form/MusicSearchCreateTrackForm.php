@@ -59,9 +59,10 @@ class MusicSearchCreateTrackForm extends FormBase {
     $track = new MusicSearchTrackData($spotify_results, $discogs_results);
 
 
-//    \Drupal::messenger()->addMessage($this->t('images: @result', [
-//      '@result' => json_encode($artist->get_images(), JSON_PRETTY_PRINT),
+//    \Drupal::messenger()->addMessage($this->t('Results: <pre>@result</pre>', [
+//      '@result' => json_encode($track->discogs_data, JSON_PRETTY_PRINT),
 //    ]));
+
 
     $form['title'] = [
       '#type' => 'textfield',
@@ -119,7 +120,6 @@ class MusicSearchCreateTrackForm extends FormBase {
       }
     }
 
-
     $form['actions']['submit'] = [
       '#type' => 'submit',
       '#value' => $this->t('Create Track'),
@@ -143,7 +143,6 @@ class MusicSearchCreateTrackForm extends FormBase {
 
     $title = $values['title'];
 
-
     $selected_value = $values['links_table']['select'] ?? NULL;
     if ($selected_value) {
       $decoded_value = json_decode($selected_value, TRUE);
@@ -155,9 +154,9 @@ class MusicSearchCreateTrackForm extends FormBase {
         $youtube_media = $this->helper->create_or_load_media($url, $title);
       }
 
-      $selected_genres = $values['field_genre'] ?? [];
-      $genre_references = $this->helper->create_or_find_genres($selected_genres);
+        $selected_genres = array_filter($values['field_genre']);
 
+        $genre_references = $this->helper->create_or_find_genres($selected_genres);
 
       $node = Node::create([
         'type' => 'lag',
@@ -175,11 +174,7 @@ class MusicSearchCreateTrackForm extends FormBase {
         'entity.node.canonical',
         ['node' => $node->id()]
       );
-
-
     }
-
-
 
     $this->messenger()->addMessage($this->t('The track %name has been created.', ['%name' => $title]));
   }
