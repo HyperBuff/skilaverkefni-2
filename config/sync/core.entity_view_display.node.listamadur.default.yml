@@ -6,6 +6,7 @@ dependencies:
     - field.field.node.listamadur.body
     - field.field.node.listamadur.field_danardagur
     - field.field.node.listamadur.field_discogs_id
+    - field.field.node.listamadur.field_genre
     - field.field.node.listamadur.field_hlekkur
     - field.field.node.listamadur.field_lysing
     - field.field.node.listamadur.field_medlimir
@@ -31,6 +32,14 @@ content:
       format_type: html_year
     third_party_settings: {  }
     weight: 4
+    region: content
+  field_genre:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
     region: content
   field_hlekkur:
     type: link

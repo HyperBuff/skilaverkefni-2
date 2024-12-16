@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.plata.body
     - field.field.node.plata.field_discogs_id
+    - field.field.node.plata.field_genre
     - field.field.node.plata.field_highlighted
     - field.field.node.plata.field_listamadur
     - field.field.node.plata.field_log
@@ -35,6 +36,16 @@ content:
     weight: 33
     region: content
     settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_genre:
+    type: entity_reference_autocomplete
+    weight: 34
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }

@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.plata.body
     - field.field.node.plata.field_discogs_id
+    - field.field.node.plata.field_genre
     - field.field.node.plata.field_highlighted
     - field.field.node.plata.field_listamadur
     - field.field.node.plata.field_log
@@ -38,6 +39,7 @@ content:
     region: content
 hidden:
   field_discogs_id: true
+  field_genre: true
   field_highlighted: true
   field_listamadur: true
   field_log: true

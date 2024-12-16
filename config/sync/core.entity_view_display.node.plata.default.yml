@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.plata.body
     - field.field.node.plata.field_discogs_id
+    - field.field.node.plata.field_genre
     - field.field.node.plata.field_highlighted
     - field.field.node.plata.field_listamadur
     - field.field.node.plata.field_log
@@ -23,6 +24,14 @@ targetEntityType: node
 bundle: plata
 mode: default
 content:
+  field_genre:
+    type: entity_reference_label
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    weight: 7
+    region: content
   field_listamadur:
     type: entity_reference_label
     label: inline

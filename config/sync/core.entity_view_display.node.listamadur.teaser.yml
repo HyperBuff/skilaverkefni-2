@@ -7,6 +7,7 @@ dependencies:
     - field.field.node.listamadur.body
     - field.field.node.listamadur.field_danardagur
     - field.field.node.listamadur.field_discogs_id
+    - field.field.node.listamadur.field_genre
     - field.field.node.listamadur.field_hlekkur
     - field.field.node.listamadur.field_lysing
     - field.field.node.listamadur.field_medlimir
@@ -38,6 +39,7 @@ content:
 hidden:
   field_danardagur: true
   field_discogs_id: true
+  field_genre: true
   field_hlekkur: true
   field_lysing: true
   field_medlimir: true

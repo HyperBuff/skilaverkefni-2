@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.lag.body
     - field.field.node.lag.field_discogs_id
+    - field.field.node.lag.field_genre
     - field.field.node.lag.field_lengd
     - field.field.node.lag.field_spotify_id
     - field.field.node.lag.field_youtube_link
@@ -16,11 +17,11 @@ targetEntityType: node
 bundle: lag
 mode: default
 content:
-  field_discogs_id:
-    type: string
+  field_genre:
+    type: entity_reference_label
     label: above
     settings:
-      link_to_entity: false
+      link: true
     third_party_settings: {  }
     weight: 3
     region: content
@@ -31,14 +32,6 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     weight: 2
-    region: content
-  field_spotify_id:
-    type: string
-    label: above
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    weight: 4
     region: content
   field_youtube_link:
     type: entity_reference_entity_view
@@ -56,4 +49,6 @@ content:
     region: content
 hidden:
   body: true
+  field_discogs_id: true
+  field_spotify_id: true
   langcode: true

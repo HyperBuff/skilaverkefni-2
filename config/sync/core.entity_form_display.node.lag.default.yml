@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.lag.body
     - field.field.node.lag.field_discogs_id
+    - field.field.node.lag.field_genre
     - field.field.node.lag.field_lengd
     - field.field.node.lag.field_spotify_id
     - field.field.node.lag.field_youtube_link
@@ -28,6 +29,16 @@ content:
     weight: 33
     region: content
     settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  field_genre:
+    type: entity_reference_autocomplete
+    weight: 34
+    region: content
+    settings:
+      match_operator: CONTAINS
+      match_limit: 10
       size: 60
       placeholder: ''
     third_party_settings: {  }

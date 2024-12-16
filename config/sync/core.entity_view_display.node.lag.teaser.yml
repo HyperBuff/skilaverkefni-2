@@ -6,6 +6,7 @@ dependencies:
     - core.entity_view_mode.node.teaser
     - field.field.node.lag.body
     - field.field.node.lag.field_discogs_id
+    - field.field.node.lag.field_genre
     - field.field.node.lag.field_lengd
     - field.field.node.lag.field_spotify_id
     - field.field.node.lag.field_youtube_link
@@ -33,6 +34,7 @@ content:
     region: content
 hidden:
   field_discogs_id: true
+  field_genre: true
   field_lengd: true
   field_spotify_id: true
   field_youtube_link: true
