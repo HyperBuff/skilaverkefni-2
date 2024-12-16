@@ -174,7 +174,6 @@ class MusicSearchCreateArtistForm extends FormBase {
     $description = $values['field_lysing']['value'] ?? '';
     $description_format = $values['field_lysing']['format'] ?? 'full_html';
 
-    // Example: Retrieve date fields (if available).
     $founding_date = $values['field_stofndagur'] ?? NULL;
     $death_date = $values['field_danardagur'] ?? NULL;
 
@@ -217,9 +216,9 @@ class MusicSearchCreateArtistForm extends FormBase {
 
 
     $form_state->setRedirect(
-      'entity.node.canonical', // Route to the node's canonical page.
+      'entity.node.canonical',
       [
-        'node' => $node_id, // Pass the node ID as a parameter.
+        'node' => $node_id,
       ]
     );
 
